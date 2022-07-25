@@ -9,6 +9,8 @@ export default function App() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <Text>Hello 애지멍지</Text>
       <Button>버튼</Button>
+      <Button>버튼2</Button>
+      <Button>버튼3</Button>
     </View>
   );
 }
