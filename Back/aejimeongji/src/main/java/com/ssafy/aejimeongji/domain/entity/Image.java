@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 
 @MappedSuperclass
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public abstract class Image {
 
@@ -17,4 +18,9 @@ public abstract class Image {
     private String originFilename;
 
     private String storeFilename;
+
+    public Image(String originFilename, String storeFilename) {
+        this.originFilename = originFilename;
+        this.storeFilename = storeFilename;
+    }
 }
