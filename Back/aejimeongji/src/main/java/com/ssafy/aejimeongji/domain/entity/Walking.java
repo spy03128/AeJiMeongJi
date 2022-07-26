@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,14 +22,11 @@ public class Walking {
 
     private String walkingTime;
 
-    private String walkingDate;
+    private LocalDateTime walkingDate;
 
-    private String calories;
-
-    public Walking(String distance, String walkingTime, String walkingDate, String calories) {
+    public Walking(String distance, String walkingTime, LocalDateTime walkingDate) {
         this.distance = distance;
         this.walkingTime = walkingTime;
         this.walkingDate = walkingDate;
-        this.calories = calories;
     }
 }
