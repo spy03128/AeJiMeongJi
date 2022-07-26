@@ -29,12 +29,27 @@ public class Dog extends BaseTimeEntity {
 
     private LocalDate adoptedDay;
 
-    public Dog(String name, LocalDate birthdate, Gender gender, Boolean neutering, Boolean gone, LocalDate adoptedDay) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "image_id")
+    private DogImage image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "breed_id")
+    private Breed breed;
+
+    public Dog(String name, LocalDate birthdate, Gender gender, Boolean neutering, Boolean gone, LocalDate adoptedDay, Member member, DogImage image, Breed breed) {
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.neutering = neutering;
         this.gone = gone;
         this.adoptedDay = adoptedDay;
+        this.member = member;
+        this.image = image;
+        this.breed = breed;
     }
 }
