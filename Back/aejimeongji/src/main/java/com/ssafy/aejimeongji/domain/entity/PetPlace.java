@@ -4,15 +4,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class petplace {
+@Getter
+@Table(name = "guidebook")
+public class PetPlace {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,14 +25,13 @@ public class petplace {
 
     private String category;
 
-    private double lat;
+    private String lat;
 
-    private double lng;
+    private String lng;
 
     private String openingHours;
 
-    public petplace(Long id, String name, String description, String address, String tel, String category, double lat, double lng, String openingHours) {
-        this.id = id;
+    public PetPlace(String name, String description, String address, String tel, String category, String lat, String lng, String openingHours) {
         this.name = name;
         this.description = description;
         this.address = address;
