@@ -20,11 +20,15 @@ public class Calendar extends BaseTimeEntity {
 
     private String content;
 
-    private LocalDate localDate;
+    private LocalDate date;
 
-    public Calendar(String title, String content, LocalDate localDate) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dog_id")
+    private Dog dog;
+
+    public Calendar(String title, String content, LocalDate date) {
         this.title = title;
         this.content = content;
-        this.localDate = localDate;
+        this.date = date;
     }
 }
