@@ -29,4 +29,10 @@ public class Like {
 
     @CreatedDate
     private LocalDateTime liketime;
+
+    public Like(Member member, GuideBook guideBook, LocalDateTime liketime) {
+        this.member = member;
+        this.guideBook = guideBook;
+        this.liketime = liketime;
+    }
 }
