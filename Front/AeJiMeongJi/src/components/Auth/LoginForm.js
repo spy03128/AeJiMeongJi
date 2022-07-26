@@ -1,8 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import Button from '../ui/Button';
 import Input from './Input';
+import axios from 'axios';
+import { login } from '../../utils/auth';
 
 const LoginForm = () => {
   const [inputValues, setInputValues] = useState({
@@ -16,10 +18,25 @@ const LoginForm = () => {
         [inputIdentifier]: entredValue,
       };
     });
+  };
 
-    const loginHandler = () => {};
-    // Navigation = useNavigation();
-    // Navigation.navigate('Home')
+
+  const submitHandler = () => {
+    const emailRegex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/
+
+    const emailIsValid = emailRegex.test(inputValues.email);
+    const passwordIsValid = inputValues.password.length > 8;
+    console.log(inputValues.email);
+    console.log(emailIsValid);
+    if (!emailIsValid) {
+      Alert.alert('email 확인해주세요');
+      return;
+    } else if (!passwordIsValid) {
+      Alert.alert('password가 짧습니다.');
+      return;
+    }
+    
+    // Login f로직    login(inputValues.email, inputValues.password);
   };
 
   return (
@@ -42,7 +59,7 @@ const LoginForm = () => {
         }}
       />
       <View style={styles.btnContainer}>
-        <Button style={styles.btn} onPress={loginHandler}>
+        <Button style={styles.btn} onPress={submitHandler}>
           로그인
         </Button>
       </View>

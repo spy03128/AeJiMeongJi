@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {Text, TextInput, View, StyleSheet} from 'react-native';
 import LoginForm from '../../components/Auth/LoginForm';
@@ -5,11 +6,7 @@ import Button from '../../components/ui/Button';
 import {Colors} from '../../constants/styles';
 
 const LoginScreen = () => {
-  const [enteredEmail, setEnteredEmail] = useState();
-  const [enteredPassword, setEnteredPassword] = useState();
-  const onLoginHandler = event => {
-    setEnteredEmail(event);
-  };
+
 
   return (
     <View style={styles.rootContainer}>
