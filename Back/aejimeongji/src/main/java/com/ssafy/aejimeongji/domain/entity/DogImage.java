@@ -1,6 +1,7 @@
 package com.ssafy.aejimeongji.domain.entity;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
