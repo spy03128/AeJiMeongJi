@@ -34,19 +34,13 @@ public class PhoneAuthService {
     @Transactional
     public String sendMessage(String phoneNumber) throws CoolsmsException {
         String authNumber = makeAuthNum();
-
-        HashMap<String, String> params = new HashMap<>();
-        params.put("to", phoneNumber); // 수신 전화번호
-        params.put("from", "01063230351"); // 발신 전화번호
-        params.put("type", "sms");
-        params.put("text", " 인증번호는 [" + authNumber + "] 입니다.");
-
+        coolSms.send(makeParams(phoneNumber, authNumber));
         return phoneAuthRepository.save(new PhoneAuth(authNumber)).getId().toString();
     }
 
     public boolean verifyAuthNumber(String phoneUUID, String authNumber) throws ExpireAuthNumberException {
         PhoneAuth phoneAuth = phoneAuthRepository.findById(phoneUUID).orElseThrow(() ->
-            new ExpireAuthNumberException()
+            new ExpireAuthNumberException(String.valueOf(Long.valueOf(phoneUUID)))
         );
         return authNumber.equals(phoneAuth.getAuthNumber()) ? true : false;
     }
@@ -57,5 +51,14 @@ public class PhoneAuthService {
             authNum += Integer.toString(rand.nextInt(10));;
         }
         return authNum;
+    }
+
+    private HashMap<String, String> makeParams(String phoneNumber, String authNumber) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("to", phoneNumber); // 수신 전화번호
+        params.put("from", "01063230351"); // 발신 전화번호
+        params.put("type", "sms");
+        params.put("text", " 인증번호는 [" + authNumber + "] 입니다.");
+        return params;
     }
 }
