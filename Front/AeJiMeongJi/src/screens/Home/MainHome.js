@@ -1,13 +1,14 @@
 
 
 import React from 'react';
-import {Image, StyleSheet, View, Text, ScrollView} from 'react-native';
+import {Image, StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {Colors} from '../../constants/styles';
 
 const MainHome = props => {
     const num = 0;
     const min = 20;
     const km = 1.4;
+    var [ isPress, setIsPress ] = React.useState(false);
   return (
     <ScrollView>
     <View style={styels.rootContainer}>
@@ -72,6 +73,37 @@ const MainHome = props => {
                 여기에 필요한 내용을 적는거야 예를 들면 예방 접종이 얼마 남지 않았다 뭐이런 이야기도 적고 이번주에 꼭 해야하는 일 이런걸 데이터베이스에 저장해두고 알려주는거지 그렇게 하면 여기를 채울 수 있지 않ㅇ르까?
                 </Text>
             </View>
+            <View style={styels.box}>
+                <View style={{flexDirection:'row',height:40,justifyContent: 'space-between'}}>
+                    <Text style={[styels.font,styels.subText]}>To-Do</Text>
+                    <Image
+                    style={styels.plus}
+                    resizeMode="contain"          
+                    source={require('../../../Assets/image/plus.png')}
+
+                    />
+                </View>
+                <View style={styels.todobox}>
+                    <View style={{flexDirection:'row'}}>
+                        {isPress?<TouchableOpacity style={styels.checkbox} onPress={()=>{
+                            setIsPress(!isPress)
+                        }} />:<TouchableOpacity style={styels.checknonbox} onPress={()=>{
+                            setIsPress(!isPress)
+                        }} />}
+                        <Text style={[styels.font,styels.titleText]}>지은이 발표시키기</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <TouchableOpacity style={styels.checkbox} />
+                        <Text style={[styels.font,styels.titleText]}>도현이 RN 공부시키기</Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                        <TouchableOpacity style={styels.checkbox} />
+                        <Text style={[styels.font,styels.titleText]}>경열이 스마트워치 연동시키기</Text>
+                    </View>
+                    
+                 
+                </View>
+            </View>
       </View>
     </View>
     </ScrollView>
@@ -84,8 +116,10 @@ const styels = StyleSheet.create({
         fontFamily:'ONE Mobile POP'
     },
     contentFont:{
-        fontFamily:'ONE Mobile Regular'
-    },
+        fontFamily:'ONE Mobile Regular',
+        fontWeight: 'bold',
+ 
+        },
     mainText:{
         fontSize:20,
         lineHeight: 40,
@@ -98,6 +132,7 @@ const styels = StyleSheet.create({
         letterSpacing: 4,
         color:Colors.contentText
     },
+   
     titleText:{
         fontSize:14,
         lineHeight: 40,
@@ -203,7 +238,7 @@ const styels = StyleSheet.create({
     backgroundColor: Colors.contentBox,
     width:'80%',
     marginTop:20,
-    marginBottom:80,
+    marginBottom:20,
     borderRadius:20,
     paddingLeft:20,
     paddingTop:10,
@@ -216,8 +251,62 @@ const styels = StyleSheet.create({
     shadowOpacity: 0.30,
     shadowRadius: 4.65,
     elevation: 8,
-
-  }
-
- 
+  },
+  box:{
+    alignSelf:'center',
+    width:'80%',
+    marginTop:20,
+    marginBottom:80,
+    
+  },
+  todobox:{
+    height:150,
+    alignSelf:'center',
+    width:'100%',
+    backgroundColor: Colors.contentBox,
+    borderRadius:20,
+    paddingLeft:20,
+    paddingTop:10,
+    paddingRight:20,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+  checkbox:{
+    borderWidth:2,
+    borderColor:Colors.back200,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:10,
+    marginRight:10,
+    width:20,
+    height:20,
+    backgroundColor:'#fff',
+    borderRadius:100,
+  },
+  checknonbox:{
+    borderWidth:2,
+    borderColor:Colors.back200,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:10,
+    marginRight:10,
+    width:20,
+    height:20,
+    backgroundColor:Colors.back100,
+    borderRadius:100,
+  },
+  plus: {
+  
+    marginTop: 5,
+    maxWidth: '40%',
+    maxHeight: '80%',
+    marginRight:-20,
+    
+  },
 });
