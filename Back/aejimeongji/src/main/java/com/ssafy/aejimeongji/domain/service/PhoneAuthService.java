@@ -33,7 +33,7 @@ public class PhoneAuthService {
 
     @Transactional
     public String sendMessage(String phoneNumber) throws CoolsmsException {
-        String authNumber = makeAuthNum();
+        String authNumber = makeAuthNumber();
         coolSms.send(makeParams(phoneNumber, authNumber));
         return phoneAuthRepository.save(new PhoneAuth(authNumber)).getId().toString();
     }
@@ -45,7 +45,7 @@ public class PhoneAuthService {
         return authNumber.equals(phoneAuth.getAuthNumber()) ? true : false;
     }
 
-    private String makeAuthNum() {
+    private String makeAuthNumber() {
         String authNum = "";
         for(int i=0; i<6; i++) {
             authNum += Integer.toString(rand.nextInt(10));;
