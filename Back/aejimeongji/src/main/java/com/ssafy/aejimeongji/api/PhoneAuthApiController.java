@@ -22,17 +22,18 @@ public class PhoneAuthApiController {
     @PostMapping("/verify")
     public ResponseEntity<ResponseDTO> confirmAuthNumber(@RequestBody PhoneAuthVerifyRequest request) {
         boolean result = phoneAuthService.verifyAuthNumber(request.getPhoneUUID(), request.getAuthNumber());
-        System.out.println("result = " + result);
         if (result) {
+            log.info("{}번 UUID에서 인증이 완료되었습니다.", request.getPhoneUUID());
             return ResponseEntity.ok().body(new ResponseDTO("인증되었습니다."));
         }
+        log.info("{}번 UUID에서 인증이 실패되었습니다.", request.getPhoneUUID());
         return ResponseEntity.badRequest().body(new ResponseDTO("인증번호를 다시 확인해주세요."));
     }
 
     @PostMapping
     public ResponseEntity<PhoneAuthSendResponse> sendMessage(@RequestBody PhoneAuthSendRequest request) throws CoolsmsException {
         String phoneUUID = phoneAuthService.sendMessage(request.getPhoneNumber());
-
+        log.info("{}번으로 인증번호가 전송되었습니다.", request.getPhoneNumber());
         return ResponseEntity.ok().body(new PhoneAuthSendResponse("인증번호가 발송되었습니다.", phoneUUID));
     }
 }
