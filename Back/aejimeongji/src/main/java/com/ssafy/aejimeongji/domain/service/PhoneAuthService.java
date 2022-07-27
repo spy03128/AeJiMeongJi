@@ -46,11 +46,11 @@ public class PhoneAuthService {
     }
 
     private String makeAuthNumber() {
-        String authNum = "";
+        String authNumber = "";
         for(int i=0; i<6; i++) {
-            authNum += Integer.toString(rand.nextInt(10));;
+            authNumber += Integer.toString(rand.nextInt(10));;
         }
-        return authNum;
+        return authNumber;
     }
 
     private HashMap<String, String> makeParams(String phoneNumber, String authNumber) {
