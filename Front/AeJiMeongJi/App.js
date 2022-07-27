@@ -5,7 +5,7 @@ import {StatusBar, Text, View} from 'react-native';
 import WelcomeScreen from './src/screens/Auth/WelcomScreen';
 import MainHome from './src/screens/Home/MainHome';
 import Initial from './src/screens/Initial';
-import Running from './src/screens/Running/Running';
+import RunningHome from './src/screens/Running/RunningHome';
 
 
 
@@ -20,7 +20,7 @@ const Navigation = () => {
       <Stack.Navigator>
         <Stack.Screen name="Initial" component={Initial}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-        <Stack.Screen name="Running" component={Running}/>
+        <Stack.Screen name="Running" component={RunningHome}/>
         <Stack.Screen name="Home" component={MainHome}/>
       </Stack.Navigator>
     </NavigationContainer>
