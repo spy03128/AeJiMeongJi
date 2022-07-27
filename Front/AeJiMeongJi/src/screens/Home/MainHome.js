@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import {Image, StyleSheet, View, Text} from 'react-native';
+import {Image, StyleSheet, View, Text, ScrollView} from 'react-native';
 import {Colors} from '../../constants/styles';
 
 const MainHome = props => {
@@ -9,6 +9,7 @@ const MainHome = props => {
     const min = 20;
     const km = 1.4;
   return (
+    <ScrollView>
     <View style={styels.rootContainer}>
         
       <View  style={styels.nav}>
@@ -63,10 +64,17 @@ const MainHome = props => {
                 
             </View>
             <View style={styels.guidebox}>
-                
+                <Text style={[styels.font,styels.titleText]}>강아지에게 
+                    <Text style={{color:Colors.btnBack100}}>{" "}초콜렛</Text> 
+                    <Text>은 절대 안돼요!</Text>
+                </Text>
+                <Text style={[styels.contentFont,styels.contentText]}>
+                여기에 필요한 내용을 적는거야 예를 들면 예방 접종이 얼마 남지 않았다 뭐이런 이야기도 적고 이번주에 꼭 해야하는 일 이런걸 데이터베이스에 저장해두고 알려주는거지 그렇게 하면 여기를 채울 수 있지 않ㅇ르까?
+                </Text>
             </View>
       </View>
     </View>
+    </ScrollView>
   );
 };
 export default MainHome;
@@ -74,6 +82,9 @@ export default MainHome;
 const styels = StyleSheet.create({
     font:{
         fontFamily:'ONE Mobile POP'
+    },
+    contentFont:{
+        fontFamily:'ONE Mobile Regular'
     },
     mainText:{
         fontSize:20,
@@ -87,12 +98,24 @@ const styels = StyleSheet.create({
         letterSpacing: 4,
         color:Colors.contentText
     },
+    titleText:{
+        fontSize:14,
+        lineHeight: 40,
+        letterSpacing: 4,
+        color:Colors.contentText
+    },
+    contentText:{
+        fontSize:12,
+        lineHeight: 20,
+        letterSpacing: 2,
+        color:Colors.contentText
+    },
   rootContainer: {
     flex: 1,
     backgroundColor: Colors.back100,
   },
   nav:{
-    flex: 1,
+    height:50,
     alignItems:"center",
     justifyContent: 'space-between',
     flexDirection:"row",
@@ -138,11 +161,11 @@ const styels = StyleSheet.create({
   },
   profile:{
     flex:1.3,
-
+    height:150,
     
   },
   runningbox:{
-    flex:1,
+    height:150,
     alignSelf:'center',
     backgroundColor: Colors.contentBox,
     width:'80%',
@@ -175,13 +198,16 @@ const styels = StyleSheet.create({
   },
 
   guidebox:{
-    flex:1.3,
+    height:170,
     alignSelf:'center',
-        backgroundColor: Colors.contentBox,
+    backgroundColor: Colors.contentBox,
     width:'80%',
     marginTop:20,
     marginBottom:80,
     borderRadius:20,
+    paddingLeft:20,
+    paddingTop:10,
+    paddingRight:20,
     shadowColor: "#000",
     shadowOffset: {
         width: 0,
@@ -189,7 +215,6 @@ const styels = StyleSheet.create({
     },
     shadowOpacity: 0.30,
     shadowRadius: 4.65,
-
     elevation: 8,
 
   }
