@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ControllerAdvice {
 
     @ExceptionHandler(ExpireAuthNumberException.class)
-    public ResponseEntity<ErrorDTO> expireAuthNumberExHandler(Exception ex) {
-        log.error("exception 발생 = {}", ex.getMessage());
+    public ResponseEntity<ErrorDTO> expireAuthNumberExHandler(ExpireAuthNumberException ex) {
+        log.info("{}번 {}", ex.getUUID(), ex.getMessage());
         return ResponseEntity.badRequest().body(new ErrorDTO(400, ex.getMessage()));
     }
 }
