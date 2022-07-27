@@ -8,10 +8,8 @@ import Initial from './src/screens/Initial';
 import Running from './src/screens/Running/Running';
 import LoginScreen from './src/screens/Auth/LoginScreen';
 import SignupScreen from './src/screens/Auth/SignupScreen';
-
-
+import SignupScreen2 from './src/screens/Auth/SignupScreen2';
 const Stack = createNativeStackNavigator();
-
 
 // 파일을 만들어서, 홈, 산책, 온보딩으로 전달한다.
 
@@ -19,17 +17,21 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Initial" component={Initial}/>
-        <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-        <Stack.Screen name="Running" component={Running}/>
-        <Stack.Screen name="Home" component={MainHome}/>
+        <Stack.Screen name="Initial" component={Initial} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="Running" component={Running} />
+        <Stack.Screen name="Home" component={MainHome} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Signup2" component={SignupScreen2} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
+
+
+import store from './src/store';
 export default function App() {
   return (
     <>
