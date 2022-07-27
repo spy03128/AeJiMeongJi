@@ -58,7 +58,7 @@ public class PhoneAuthService {
         params.put("to", phoneNumber); // 수신 전화번호
         params.put("from", "01063230351"); // 발신 전화번호
         params.put("type", "sms");
-        params.put("text", " 인증번호는 [" + authNumber + "] 입니다.");
+        params.put("text", "인증번호는 [" + authNumber + "] 입니다.");
         return params;
     }
 }
