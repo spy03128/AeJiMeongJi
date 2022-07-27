@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "petplaceimage")
 public class PetplaceImage extends Image {
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "petplace_id")
     private PetPlace petPlace;
