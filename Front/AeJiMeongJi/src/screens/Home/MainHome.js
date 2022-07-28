@@ -225,6 +225,30 @@ const MainHome = props => {
               </View>
             </View>
           </View>
+
+          <View style={styels.box}>
+            <View
+              style={{
+                flexDirection: 'row',
+                height: 40,
+                justifyContent: 'space-between',
+              }}>
+              <Text style={[styels.font, styels.subText]}>애견 가이드</Text>
+            </View>
+
+            <View style={styels.guideclickbox}>
+              <Image
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: 20,
+                  marginTop: -10,
+                }}
+                resizeMode="contain"
+                source={require('../../../Assets/image/banner1.jpg')}
+              />
+            </View>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -359,7 +383,7 @@ const styels = StyleSheet.create({
     backgroundColor: Colors.contentBox,
     width: '80%',
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 70,
     borderRadius: 20,
     paddingLeft: 20,
     paddingTop: 10,
@@ -377,7 +401,7 @@ const styels = StyleSheet.create({
     alignSelf: 'center',
     width: '80%',
     marginTop: 20,
-    marginBottom: 30,
+    marginBottom: 70,
   },
   todobox: {
     height: 150,
@@ -432,11 +456,32 @@ const styels = StyleSheet.create({
     height: 240,
     width: '100%',
     borderRadius: 20,
+    marginBottom: 20,
   },
   placesubBox: {
     flexDirection: 'row',
+    marginBottom: -10,
   },
   placesubcontent: {
     flex: 1,
+  },
+  guideclickbox: {
+    height: 150,
+    alignSelf: 'center',
+    backgroundColor: Colors.contentBox,
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 20,
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 });
