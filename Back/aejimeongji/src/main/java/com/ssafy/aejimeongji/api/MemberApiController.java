@@ -1,15 +1,16 @@
 package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
+import com.ssafy.aejimeongji.api.dto.member.DuplicationCheckResponse;
 import com.ssafy.aejimeongji.api.dto.member.MemberModifyRequest;
 import com.ssafy.aejimeongji.api.dto.member.MemberProfileResponse;
 import com.ssafy.aejimeongji.api.dto.member.MemberSignUpRequest;
+import com.ssafy.aejimeongji.domain.condition.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.entity.Member;
 import com.ssafy.aejimeongji.domain.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,15 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+
+    @PostMapping("/auth/duplicationcheck")
+    public ResponseEntity<DuplicationCheckResponse> checkDuplicated(@RequestBody DuplicatedCheckCondition condition) {
+        boolean resultStatus = memberService.duplicatedCheck(condition);
+        String message = makeDuplicateCheckResponseMessage(condition, resultStatus);
+        if (resultStatus)
+            return ResponseEntity.ok().body(new DuplicationCheckResponse(resultStatus, message));
+        return ResponseEntity.badRequest().body(new DuplicationCheckResponse(resultStatus, message));
+    }
 
     @GetMapping("/member/{memberId}/profile")
     public ResponseEntity<MemberProfileResponse> showMemberProfile(@PathVariable Long memberId) {
@@ -48,5 +58,15 @@ public class MemberApiController {
         log.info("회원탈퇴 요청 = {}", memberId);
         memberService.deleteMember(memberId);
         return ResponseEntity.ok(new ResponseDTO("회원탈퇴가 완료되었습니다."));
+    }
+
+    private String makeDuplicateCheckResponseMessage(DuplicatedCheckCondition condition, boolean resultStatus) {
+        String message = resultStatus ? "사용가능한 " : "이미 존재하는 ";
+        message += addMessage(condition);
+        return message;
+    }
+
+    private String addMessage(DuplicatedCheckCondition condition) {
+        return condition.getEmail() != null ? "이메일입니다." : "닉네임입니다.";
     }
 }
