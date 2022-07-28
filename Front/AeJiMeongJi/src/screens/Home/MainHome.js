@@ -35,7 +35,42 @@ const MainHome = props => {
           />
         </View>
         <View style={styels.contentbox}>
-          <View style={styels.profile}></View>
+          <View style={styels.profile}>
+            <View style={styels.profile1}>
+              <View style={styels.profile1sub1}>
+                <View style={styels.name1}>
+                  <Image
+                    style={{
+                      width: '80%',
+                      height: '80%',
+                    }}
+                    resizeMode="contain"
+                    source={require('../../../Assets/image/name-icon.png')}
+                  />
+                </View>
+                <View style={styels.name2}>
+                  <Text style={[styels.font, styels.subText]}>박베리</Text>
+                </View>
+              </View>
+              <View style={styels.profile1sub2}>
+                <Text style={[styels.font, styels.subText]}>가족이 된 지</Text>
+                <Text style={[styels.font, styels.dday]}>D+2039</Text>
+              </View>
+            </View>
+            <View style={styels.profile2}>
+              <Image
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: 100,
+                  borderColor: Colors.contentText,
+                  borderWidth: 2,
+                }}
+                resizeMode="contain"
+                source={require('../../../Assets/image/박베리.png')}
+              />
+            </View>
+          </View>
 
           <View style={styels.runningbox}>
             <View style={styels.run1}>
@@ -264,6 +299,13 @@ const styels = StyleSheet.create({
     fontFamily: 'ONE Mobile Regular',
     fontWeight: 'bold',
   },
+  dday: {
+    fontSize: 31,
+    lineHeight: 40,
+    letterSpacing: 4,
+    color: Colors.btnBack100,
+  },
+
   mainText: {
     fontSize: 20,
     lineHeight: 40,
@@ -347,6 +389,42 @@ const styels = StyleSheet.create({
   profile: {
     flex: 1.3,
     height: 150,
+    marginTop: 40,
+    marginBottom: 20,
+    alignSelf: 'center',
+    width: '80%',
+    flexDirection: 'row',
+  },
+  profile1: {
+    flex: 1,
+    width: '50%',
+    padding: 10,
+  },
+  profile1sub1: {
+    flex: 2.5,
+    borderRadius: 20,
+    marginBottom: 10,
+    backgroundColor: Colors.contentBox,
+    borderColor: Colors.btnBack100,
+    borderWidth: 2,
+    flexDirection: 'row',
+  },
+  name1: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    paddingLeft: 5,
+  },
+  name2: {
+    flex: 2.5,
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+  },
+  profile1sub2: {
+    flex: 5,
+  },
+  profile2: {
+    flex: 1,
   },
   runningbox: {
     height: 150,

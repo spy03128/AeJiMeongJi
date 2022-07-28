@@ -7,6 +7,5 @@ export const Colors = {
   notification: '#98CB58',
   inputBorder: '#D6D6D6',
   contentBox: '#FBEDD3',
-  contentText: '#553609'
+  contentText: '#553609',
 };
-
