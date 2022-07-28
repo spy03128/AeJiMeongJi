@@ -4,6 +4,7 @@ import com.ssafy.aejimeongji.domain.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +21,13 @@ public class MemberProfileResponse {
         memberId = member.getId();
         email = member.getEmail();
         nickname = member.getNickname();
-        phoneNumber = member.getPhoneNumber();
+        phoneNumber = convertFormmatNumber(member.getPhoneNumber());
         createdDate = member.getCreatedDate();
+    }
+
+    private String convertFormmatNumber(String phoneNumber) {
+        if (StringUtils.hasText(phoneNumber))
+            return phoneNumber.substring(0, 3) + phoneNumber.substring(3, 7) + phoneNumber.substring(7, 11);;
+        return phoneNumber;
     }
 }
