@@ -6,11 +6,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.aejimeongji.domain.condition.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.entity.QMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import static com.ssafy.aejimeongji.domain.entity.QMember.*;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class MemberCustomRepositoryImpl implements MemberCustomRepository {
@@ -24,7 +26,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .from(member)
                 .where(getEqualEmail(member, condition.getEmail()), getEqualNickname(member, condition.getNickname()))
                 .fetchOne();
-        return count.equals(1) ? true : false;
+        return count.equals(1L) ? true : false;
     }
 
     private BooleanExpression getEqualNickname(QMember member, String nickname) {
