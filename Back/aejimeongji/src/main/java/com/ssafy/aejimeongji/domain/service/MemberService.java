@@ -24,7 +24,7 @@ public class MemberService {
 
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberNotFoundException());
+                .orElseThrow(() -> new MemberNotFoundException(memberId));
     }
 
     @Transactional
