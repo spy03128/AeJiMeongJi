@@ -7,6 +7,7 @@ import com.ssafy.aejimeongji.domain.condition.DuplicatedCheckCondition;
 import com.ssafy.aejimeongji.domain.entity.QMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import static com.ssafy.aejimeongji.domain.entity.QMember.*;
 
@@ -23,15 +24,14 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .from(member)
                 .where(getEqualEmail(member, condition.getEmail()), getEqualNickname(member, condition.getNickname()))
                 .fetchOne();
-
         return count.equals(1) ? true : false;
     }
 
     private BooleanExpression getEqualNickname(QMember member, String nickname) {
-        return member.nickname.eq(nickname);
+        return StringUtils.hasText(nickname) ? member.nickname.eq(nickname) : null;
     }
 
     private BooleanExpression getEqualEmail(QMember member, String email) {
-        return member.email.eq(email);
+        return StringUtils.hasText(email) ? member.email.eq(email) : null;
     }
 }
