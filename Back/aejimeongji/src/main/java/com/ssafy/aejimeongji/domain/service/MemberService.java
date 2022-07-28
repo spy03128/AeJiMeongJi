@@ -27,7 +27,16 @@ public class MemberService {
                 .orElseThrow(() -> new MemberNotFoundException());
     }
 
-    public Member joinMember(Member member) {
-        return memberRepository.save(member);
+    @Transactional
+    public Long joinMember(Member member) {
+        return memberRepository.save(member).getId();
+    }
+
+    @Transactional
+    public Long updateMember(Member updateParam) {
+        Member findMember = memberRepository.findById(updateParam.getId())
+                .orElseThrow(() -> new MemberNotFoundException());
+        findMember.updateMember(updateParam.getNickname(), updateParam.getPassword(), updateParam.getPhoneNumber());
+        return findMember.getId();
     }
 }
