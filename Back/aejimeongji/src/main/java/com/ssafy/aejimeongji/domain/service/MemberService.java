@@ -34,16 +34,14 @@ public class MemberService {
 
     @Transactional
     public Long updateMember(Long memberId, String nickname, String password, String phoneNumber) {
-        Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberNotFoundException());
+        Member findMember = findMember(memberId);
         findMember.updateMember(nickname, password, phoneNumber);
         return findMember.getId();
     }
 
     @Transactional
     public void deleteMember(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberNotFoundException());
+        Member member = findMember(memberId);
         memberRepository.delete(member);
     }
 }
