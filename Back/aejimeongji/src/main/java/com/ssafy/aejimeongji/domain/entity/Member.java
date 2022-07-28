@@ -28,6 +28,11 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public Member(String email, String nickname) {
+        this.email = email;
+        this.nickname = nickname;
+    }
+
     public Member(String email, String password, String username, String phoneNumber, String nickname) {
         this.email = email;
         this.password = password;
