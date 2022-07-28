@@ -33,10 +33,10 @@ public class MemberService {
     }
 
     @Transactional
-    public Long updateMember(Member updateParam) {
-        Member findMember = memberRepository.findById(updateParam.getId())
+    public Long updateMember(Long memberId, String nickname, String password, String phoneNumber) {
+        Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException());
-        findMember.updateMember(updateParam.getNickname(), updateParam.getPassword(), updateParam.getPhoneNumber());
+        findMember.updateMember(nickname, password, phoneNumber);
         return findMember.getId();
     }
 
