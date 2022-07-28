@@ -17,6 +17,10 @@ public class MemberProfileResponse {
     private String phoneNumber;
     private LocalDateTime createdDate;
 
+    public static MemberProfileResponse convert(Member member) {
+        return new MemberProfileResponse(member);
+    }
+
     public MemberProfileResponse(Member member) {
         memberId = member.getId();
         email = member.getEmail();
