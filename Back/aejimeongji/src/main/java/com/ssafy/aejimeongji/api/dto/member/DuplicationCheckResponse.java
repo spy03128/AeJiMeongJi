@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DuplicationCheckResponse {
-    private String resultStatus;
+    private boolean resultStatus;
     private String message;
 }
