@@ -1,10 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, TextInput, View, Text} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux/es/exports';
+import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import Button from '../ui/Button';
 import Input from './Input';
+
+
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -161,5 +163,9 @@ const styles = StyleSheet.create({
     marginTop: 4,
     color: 'red',
     paddingLeft: 8,
+  },
+  btn: {
+    flex: 1,
+    paddingHorizontal: 30,
   },
 });

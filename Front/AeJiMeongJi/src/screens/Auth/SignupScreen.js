@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
-import {Text, TextInput, View, StyleSheet} from 'react-native';
+import React from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 import SignupForm from '../../components/Auth/SignupForm';
-import Button from '../../components/ui/Button';
+import ProgressBar from '../../components/ui/ProgressBar';
 import {Colors} from '../../constants/styles';
 
-
 const SignupScreen = ({navigation}) => {
-  
   return (
     <View style={styles.rootContainer}>
+      <ProgressBar style={styles.progress} />
       <View style={styles.titleContainer}>
         <Text style={styles.title}>회원가입</Text>
       </View>
@@ -51,5 +50,10 @@ const styles = StyleSheet.create({
   btn: {
     flex: 1,
     marginTop: 16,
+  },
+  progress: {
+    position: 'absolute',
+    width: '50%',
+    left: 0,
   },
 });
