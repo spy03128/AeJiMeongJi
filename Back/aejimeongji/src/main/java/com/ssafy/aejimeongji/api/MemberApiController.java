@@ -24,24 +24,28 @@ public class MemberApiController {
 
     @GetMapping("/member/{memberId}/profile")
     public ResponseEntity<MemberProfileResponse> showMemberProfile(@PathVariable Long memberId) {
+        log.info("회원정보조회 요청 = {}", memberId);
         Member member = memberService.findMember(memberId);
         return ResponseEntity.ok().body(new MemberProfileResponse(member));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<ResponseDTO> signup(@RequestBody MemberSignUpRequest request) {
+        log.info("회원가입 요청");
         memberService.joinMember(request.convertMember(passwordEncoder));
         return ResponseEntity.ok(new ResponseDTO("회원가입이 완료되었습니다."));
     }
 
     @PutMapping("/member/{memberId}")
     public ResponseEntity<ResponseDTO> modifyProfile(@PathVariable Long memberId, @RequestBody MemberModifyRequest request) {
+        log.info("회원정보수정 요청 = {}", memberId);
         memberService.updateMember(memberId, request.getNickname(), request.getPassword(), request.getPhoneNumber());
         return ResponseEntity.ok(new ResponseDTO("회원 정보 수정이 완료되었습니다."));
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/member/{memberId}")
     public ResponseEntity<ResponseDTO> deleteMember(@PathVariable Long memberId) {
+        log.info("회원탈퇴 요청 = {}", memberId);
         memberService.deleteMember(memberId);
         return ResponseEntity.ok(new ResponseDTO("회원탈퇴가 완료되었습니다."));
     }
