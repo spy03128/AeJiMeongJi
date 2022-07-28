@@ -21,7 +21,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public boolean duplicatedCheck(DuplicatedCheckCondition condition) {
-        return memberRepository.duplicatedCheck(condition);
+        return memberRepository.duplicatedCheck(condition) ? false : true;
     }
 
     public Member findMember(Long memberId) {
