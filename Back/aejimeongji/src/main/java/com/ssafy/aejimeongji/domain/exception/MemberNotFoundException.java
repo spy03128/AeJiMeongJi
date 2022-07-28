@@ -1,5 +1,8 @@
 package com.ssafy.aejimeongji.domain.exception;
 
+import lombok.Getter;
+
+@Getter
 public class MemberNotFoundException extends IllegalArgumentException {
 
     private Long memberId;
