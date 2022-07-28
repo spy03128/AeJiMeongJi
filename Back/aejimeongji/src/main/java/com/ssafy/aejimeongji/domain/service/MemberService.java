@@ -26,4 +26,8 @@ public class MemberService {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException());
     }
+
+    public Member joinMember(Member member) {
+        return memberRepository.save(member);
+    }
 }
