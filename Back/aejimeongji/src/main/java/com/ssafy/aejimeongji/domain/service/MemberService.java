@@ -39,4 +39,11 @@ public class MemberService {
         findMember.updateMember(updateParam.getNickname(), updateParam.getPassword(), updateParam.getPhoneNumber());
         return findMember.getId();
     }
+
+    @Transactional
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException());
+        memberRepository.delete(member);
+    }
 }
