@@ -2,14 +2,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
 import {StatusBar, Text, View} from 'react-native';
-import WelcomeScreen from './src/screens/Auth/WelcomScreen';
 import MainHome from './src/screens/Home/MainHome';
 import Initial from './src/screens/Initial';
 import Running from './src/screens/Running/Running';
-import LoginScreen from './src/screens/Auth/LoginScreen';
-import SignupScreen from './src/screens/Auth/SignupScreen';
-import SignupScreen2 from './src/screens/Auth/SignupScreen2';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -26,9 +22,10 @@ const AuthenticatedStack = () => {
 };
 
 const Navigation = () => {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+  // 자동 로그인 기능
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  // const dispatch = useDispatch();
   // useEffect(() => {
   //   const fetchToken = async () => {
   //     const storedToken = await AsyncStorage.getItem('token');
