@@ -26,8 +26,8 @@ public class GuideBookService {
     }
 
     // 가이드 상세 조회
-    public Optional<GuideBook> findGuideBook(Long guideBookId) {
-        return guideBookRepository.findById(guideBookId);
+    public GuideBook findGuideBook(Long guideBookId) {
+        return guideBookRepository.findById(guideBookId).get();
     }
 
     // 가이드 생성
