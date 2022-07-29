@@ -32,7 +32,7 @@ const ProfileHomeScreen = () => {
           }}
           style={styles.profileInput}
         />
-        <View style={styles.checkBox}>
+        <View style={styles.checkBoxContainer}>
           <CheckBox
             center
             title="중성화 수술을 진행 하셨나요?"
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   textContainer: {
     // flex: 1,
     marginVertical: 50,
-    paddingLeft: 8,
+    paddingLeft: 12,
   },
   title: {
     color: '#603500',
@@ -80,7 +80,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileInput: {
-    marginVertical: 8,
+    marginVertical: 12,
+  },
+  checkBoxContainer: {
+    marginTop: 8
   },
   checkBox: {
     backgroundColor: Colors.back100,
