@@ -8,6 +8,7 @@ import Initial from '../screens/Initial';
 import MainHome from '../screens/Home/MainHome';
 import {CardStyleInterpolators} from '@react-navigation/stack';
 import RunningHome from '../screens/Running/RunningHome';
+import ProfileHomeScreen from '../screens/Profile/ProfileHomeScreen2';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,8 @@ const AuthStack = () => {
         }}
       />
       <Stack.Screen name="Signup2" component={SignupScreen2} />
+      <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
+      
     </Stack.Navigator>
   );
 };

@@ -21,6 +21,11 @@ const Initial = ({navigation}) => {
           navigation.navigate('RunningHome');
         }}
         title="Running"></Button>
+      <Button
+        onPress={() => {
+          navigation.navigate('ProfileHome');
+        }}
+        title="Profile"></Button>
     </View>
   );
 };

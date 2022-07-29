@@ -4,8 +4,8 @@ import React, {useEffect} from 'react';
 import {StatusBar, Text, View} from 'react-native';
 import MainHome from './src/screens/Home/MainHome';
 import Initial from './src/screens/Initial';
-import RunningHome from './src/screens/Running/RunningHome';
-import GuideHome from './src/screens/Guide/GuideHome';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -17,12 +17,12 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="Running" component={RunningHome} />
       <Stack.Screen name="Home" component={MainHome} />
-      <Stack.Screen name="GuideHome" component={GuideHome} />
     </Stack.Navigator>
   );
 };
 
 const Navigation = () => {
+
   // 자동 로그인 기능
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   // const dispatch = useDispatch();
@@ -51,6 +51,7 @@ import store from './src/store';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import {authActions} from './src/store/auth';
 import AuthStack from './src/navigation/AuthStack';
+import RunningHome from './src/screens/Running/RunningHome';
 export default function App() {
   return (
     <Provider store={store}>
