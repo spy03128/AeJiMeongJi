@@ -8,7 +8,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
@@ -18,8 +17,7 @@ public class TokenProvider {
 
     private String secretKey;
 
-    @PostConstruct
-    protected void init(@Value("${jwt.secretKey}") String secretKey) {
+    public TokenProvider(@Value("${jwt.secretKey}") String secretKey) {
         this.secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
@@ -48,7 +46,7 @@ public class TokenProvider {
     }
 
     public String getMemberId(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("memberId").toString();
     }
 
     public String resolveToken(HttpServletRequest request) {
