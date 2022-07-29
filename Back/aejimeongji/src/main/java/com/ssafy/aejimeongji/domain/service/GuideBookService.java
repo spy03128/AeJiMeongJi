@@ -27,7 +27,8 @@ public class GuideBookService {
 
     // 가이드 상세 조회
     public GuideBook findGuideBook(Long guideBookId) {
-        return guideBookRepository.findById(guideBookId).get();
+        return guideBookRepository.findById(guideBookId)
+                .orElseThrow(() -> new IllegalArgumentException("조회하신 가이드가 존재하지 않습니다."));
     }
 
     // 가이드 생성

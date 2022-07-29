@@ -27,11 +27,6 @@ class GuideBookServiceTest {
         guideBookService = new GuideBookService(guideBookRepository);
     }
 
-//    @AfterEach
-//    public void afterEach() {
-//        guideBookRepository.clearStore();
-//    }
-
     @Test
     void findGuideBookListTest() {
         // given
