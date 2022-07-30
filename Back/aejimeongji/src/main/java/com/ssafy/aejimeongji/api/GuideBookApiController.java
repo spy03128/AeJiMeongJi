@@ -2,14 +2,13 @@ package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
 import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookRequest;
+import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookResponse;
+import com.ssafy.aejimeongji.domain.entity.GuideBook;
 import com.ssafy.aejimeongji.domain.service.GuideBookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -17,6 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GuideBookApiController {
     private final GuideBookService guideBookService;
+
+    @GetMapping("/{guideId}")
+    public ResponseEntity<GuideBookResponse> getGuideBook(@PathVariable Long guideId) {
+        log.info("가이드북 {}번 상세 정보 요청", guideId);
+        GuideBook guideBook = guideBookService.findGuideBook(guideId);
+        return ResponseEntity.ok().body(new GuideBookResponse(guideBook));
+    }
 
     @PostMapping("")
     public ResponseEntity<ResponseDTO> saveGuide(@RequestBody GuideBookRequest newGuideDTO) {
