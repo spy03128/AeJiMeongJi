@@ -17,6 +17,12 @@ public class DogService {
         this.dogRepository = dogRepository;
     }
 
+    // 강아지 프로필 상세 조회
+    public Dog findDog(Long dogId) {
+        return dogRepository.findById(dogId)
+                .orElseThrow(() -> new IllegalArgumentException("조회하신 강아지가 존재하지 않습니다."));
+    }
+
     // 강아지 프로필 등록
     @Transactional
     public Long saveDog(Dog dog) {
