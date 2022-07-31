@@ -16,4 +16,5 @@ public class UpdateCalendarRequest {
     private String content;
     @DateTimeFormat(pattern = "yyyyMMdd")
     private LocalDate date;
+
 }
