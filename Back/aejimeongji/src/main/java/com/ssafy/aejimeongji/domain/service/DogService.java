@@ -39,4 +39,11 @@ public class DogService {
         findDog.updateDog(newName, newBirthdate, newAdoptedDay, newBreed);
         return findDog.getId();
     }
+
+    // 강아지 프로필 삭제
+    @Transactional
+    public void deleteDog(Long dogId) {
+        Dog findDog = findDog(dogId);
+        dogRepository.delete(findDog);
+    }
 }
