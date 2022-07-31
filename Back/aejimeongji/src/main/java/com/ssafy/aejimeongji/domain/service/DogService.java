@@ -1,10 +1,13 @@
 package com.ssafy.aejimeongji.domain.service;
 
+import com.ssafy.aejimeongji.domain.entity.Breed;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 @Slf4j
 @Service
@@ -27,5 +30,13 @@ public class DogService {
     @Transactional
     public Long saveDog(Dog dog) {
         return dogRepository.save(dog).getId();
+    }
+
+    // 강아지 프로필 수정
+    @Transactional
+    public Long updateDog(Long dogId, String newName, LocalDate newBirthdate, LocalDate newAdoptedDay, Breed newBreed) {
+        Dog findDog = findDog(dogId);
+        findDog.updateDog(newName, newBirthdate, newAdoptedDay, newBreed);
+        return findDog.getId();
     }
 }
