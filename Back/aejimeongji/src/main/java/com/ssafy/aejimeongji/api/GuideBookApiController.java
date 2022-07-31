@@ -10,12 +10,26 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/guide")
 @RequiredArgsConstructor
 public class GuideBookApiController {
     private final GuideBookService guideBookService;
+
+    // 강아지 맞춤형 가이드 목록 조회 - 전체 목록 조회 로직까지 구현됨
+    @GetMapping("/dog/{dogId}")
+    public ResponseEntity<List<GuideBookResponse>> getGuideBookList(@PathVariable Long dogId) {
+        log.info("강아지{} 맞춤 가이드 목록 요청", dogId);
+        List<GuideBook> guideBookList = guideBookService.findGuideBookList();
+        List<GuideBookResponse> guideBookResponseList = guideBookList.stream()
+                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+        return ResponseEntity.ok().body(guideBookResponseList);
+    }
 
     @GetMapping("/{guideId}")
     public ResponseEntity<GuideBookResponse> getGuideBook(@PathVariable Long guideId) {
