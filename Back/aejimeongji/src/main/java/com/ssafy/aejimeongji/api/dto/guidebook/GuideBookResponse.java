@@ -18,4 +18,8 @@ public class GuideBookResponse {
         content = guideBook.getContent();
         category = guideBook.getCategory();
     }
+
+    public static GuideBookResponse toDTO(GuideBook guideBook) {
+        return new GuideBookResponse(guideBook);
+    }
 }
