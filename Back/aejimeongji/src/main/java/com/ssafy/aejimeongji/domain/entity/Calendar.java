@@ -26,7 +26,14 @@ public class Calendar extends BaseTimeEntity {
     @JoinColumn(name = "dog_id")
     private Dog dog;
 
-    public Calendar(String title, String content, LocalDate date) {
+    public Calendar(Dog dog, String title, String content, LocalDate date) {
+        this.dog = dog;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+    }
+
+    public void updateCalendar(String title, String content, LocalDate date) {
         this.title = title;
         this.content = content;
         this.date = date;
