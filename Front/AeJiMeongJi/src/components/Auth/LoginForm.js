@@ -5,8 +5,12 @@ import Button from '../ui/Button';
 import Input from './Input';
 import axios from 'axios';
 import { login } from '../../utils/auth';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth';
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
   const [inputValues, setInputValues] = useState({
     email: '',
     password: '',
@@ -21,13 +25,12 @@ const LoginForm = () => {
   };
 
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     const emailRegex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/
 
     const emailIsValid = emailRegex.test(inputValues.email);
     const passwordIsValid = inputValues.password.length > 8;
-    console.log(inputValues.email);
-    console.log(emailIsValid);
+
     if (!emailIsValid) {
       Alert.alert('email 확인해주세요');
       return;
@@ -35,8 +38,13 @@ const LoginForm = () => {
       Alert.alert('password가 짧습니다.');
       return;
     }
-    
-    // Login f로직    login(inputValues.email, inputValues.password);
+
+
+    const res = await login(inputValues.email, inputValues.password);
+    console.log(res.data.accessToken, 'access token');
+    await dispatch(authActions.authenticate({token: res.data.accessToken}));
+    console.log('디스패치 이후');
+    navigation.navigate('Home')
   };
 
   return (
@@ -55,6 +63,7 @@ const LoginForm = () => {
           value: inputValues.password,
           placeholder: 'password',
           autoCapitalize: 'none',
+          secureTextEntry: true,
           onChangeText: inputChangeHandler.bind(this, 'password'),
         }}
       />
