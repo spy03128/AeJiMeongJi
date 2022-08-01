@@ -14,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -28,37 +28,36 @@ public class CalendarApiController {
     @GetMapping("/dog/{dogId}/calendar")
     public ResponseEntity<?> getTodoList(@PathVariable Long dogId) {
 
+        log.info("{}번 강아지 Todos", dogId);
+
         List<Calendar> list = calendarService.findCalendar(dogId);
-        List<CalendarTodosResponse> calendarTodosResponse = new ArrayList<>();
+        List<CalendarTodosResponse> response = list.stream()
+                .map(o -> new CalendarTodosResponse(o))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < list.size(); i++) {
-            CalendarTodosResponse temp = new CalendarTodosResponse(list.get(i).getTitle(), list.get(i).getContent(), list.get(i).getDate());
-            calendarTodosResponse.add(temp);
-        }
-
-        return ResponseEntity.ok().body(calendarTodosResponse);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/dog/{dogId}/calendar/{date}")
     public ResponseEntity<?> getTodo(@PathVariable("dogId") Long dogId,
                                      @PathVariable("date") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date) {
 
+        log.info("{}번 강아지 {}일의 Todos", dogId, date);
+
         List<Calendar> list = calendarService.findCalendar(dogId);
-        List<CalendarTodosResponse> calendarTodosResponse = new ArrayList<>();
+        List<CalendarTodosResponse> response = list.stream()
+                .filter(o -> o.getDate().isEqual(date))
+                .map(o -> new CalendarTodosResponse(o))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDate().isEqual(date)) {
-                CalendarTodosResponse temp = new CalendarTodosResponse(list.get(i).getTitle(), list.get(i).getContent(), list.get(i).getDate());
-                calendarTodosResponse.add(temp);
-            }
-        }
-
-        return ResponseEntity.ok().body(calendarTodosResponse);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/dog/{dogId}/calendar")
     public ResponseEntity<ResponseDTO> createTodo(@PathVariable Long dogId,
-                                               CreateCalendarRequest request) {
+                                               @RequestBody CreateCalendarRequest request) {
+
+        log.info("{}번 강아지 Todo 생성", dogId);
 
         Dog dog = calendarService.findDog(dogId);
         calendarService.createCalendar(new Calendar(dog, request.getTitle(), request.getContent(), request.getDate()));
@@ -68,7 +67,9 @@ public class CalendarApiController {
 
     @PutMapping("/calendar/{calendarId}")
     public ResponseEntity<ResponseDTO> updateTodo(@PathVariable Long calendarId,
-                                                  UpdateCalendarRequest request) {
+                                                  @RequestBody UpdateCalendarRequest request) {
+
+        log.info("{}번 Todo 수정", calendarId);
 
         calendarService.updateCalendar(calendarId, request.getTitle(), request.getContent(), request.getDate());
 
@@ -77,6 +78,8 @@ public class CalendarApiController {
 
     @DeleteMapping("/calendar/{calendarId}")
     public ResponseEntity<ResponseDTO> deleteTodo(@PathVariable Long calendarId) {
+
+        log.info("{}번 Todo 삭제", calendarId);
 
         calendarService.deleteCalendar(calendarId);
 

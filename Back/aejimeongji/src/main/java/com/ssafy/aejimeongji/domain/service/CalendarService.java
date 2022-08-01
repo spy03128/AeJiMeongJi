@@ -22,15 +22,17 @@ public class CalendarService {
     private final DogRepository dogRepository;
 
     public Dog findDog(Long dogId) {
-        return dogRepository.findById(dogId).get();
+        return dogRepository.findById(dogId)
+                .orElseThrow(() -> new IllegalArgumentException("조회한 강아지가 존재하지 않습니다."));
     }
 
     public Calendar findTodo(Long id) {
-        return calendarRepository.findById(id).get();
+        return calendarRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("요청한 캘린더가 존재하지 않습니다."));
     }
 
     public List<Calendar> findCalendar(Long dogId) {
-        return calendarRepository.findAllByDogId(dogId);
+        return calendarRepository.findByDogId(dogId);
     }
 
     @Transactional

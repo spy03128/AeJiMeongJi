@@ -3,7 +3,6 @@ package com.ssafy.aejimeongji.api.dto.calendar;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -14,7 +13,6 @@ public class UpdateCalendarRequest {
 
     private String title;
     private String content;
-    @DateTimeFormat(pattern = "yyyyMMdd")
     private LocalDate date;
 
 }

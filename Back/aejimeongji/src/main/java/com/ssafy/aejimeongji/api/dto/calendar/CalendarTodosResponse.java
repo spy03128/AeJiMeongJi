@@ -1,5 +1,6 @@
 package com.ssafy.aejimeongji.api.dto.calendar;
 
+import com.ssafy.aejimeongji.domain.entity.Calendar;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,4 +14,9 @@ public class CalendarTodosResponse {
     private String content;
     private LocalDate date;
 
+    public CalendarTodosResponse(Calendar calendar) {
+        title = calendar.getTitle();
+        content = calendar.getContent();
+        date = calendar.getDate();
+    }
 }
