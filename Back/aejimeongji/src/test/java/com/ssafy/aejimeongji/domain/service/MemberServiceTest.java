@@ -19,6 +19,8 @@ class MemberServiceTest {
     @Autowired
     MemberRepository memberRepository;
     @Autowired
+    AuthService authService;
+    @Autowired
     MemberService memberService;
 
     @BeforeEach
@@ -37,12 +39,12 @@ class MemberServiceTest {
         condition2.setEmail("ssafy99@ssafy.com");
 
         // when
-        boolean result1 = memberService.duplicatedCheck(condition1);
-        boolean result2 = memberService.duplicatedCheck(condition2);
+        boolean result1 = authService.duplicatedCheck(condition1);
+        boolean result2 = authService.duplicatedCheck(condition2);
 
         // then
-        assertThat(result1).isEqualTo(true);
-        assertThat(result2).isEqualTo(false);
+        assertThat(result1).isEqualTo(false);
+        assertThat(result2).isEqualTo(true);
     }
 
     @Test
@@ -54,12 +56,12 @@ class MemberServiceTest {
         condition2.setNickname("닉네임100");
 
         // when
-        boolean result1 = memberService.duplicatedCheck(condition1);
-        boolean result2 = memberService.duplicatedCheck(condition2);
+        boolean result1 = authService.duplicatedCheck(condition1);
+        boolean result2 = authService.duplicatedCheck(condition2);
 
         // then
-        assertThat(result1).isEqualTo(true);
-        assertThat(result2).isEqualTo(false);
+        assertThat(result1).isEqualTo(false);
+        assertThat(result2).isEqualTo(true);
     }
 
     @Test
@@ -86,7 +88,6 @@ class MemberServiceTest {
 
         // then
         assertThat(member.getNickname()).isEqualTo("권도현");
-        assertThat(member.getPassword()).isEqualTo("password");
         assertThat(member.getPhoneNumber()).isEqualTo("01063230351");
     }
 
