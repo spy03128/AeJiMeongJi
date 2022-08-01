@@ -1,9 +1,9 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.Calendar.CalendarTodosResponse;
-import com.ssafy.aejimeongji.api.dto.Calendar.CreateCalendarRequest;
+import com.ssafy.aejimeongji.api.dto.calendar.CalendarTodosResponse;
+import com.ssafy.aejimeongji.api.dto.calendar.CreateCalendarRequest;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.Calendar.UpdateCalendarRequest;
+import com.ssafy.aejimeongji.api.dto.calendar.UpdateCalendarRequest;
 import com.ssafy.aejimeongji.domain.entity.Calendar;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.service.CalendarService;

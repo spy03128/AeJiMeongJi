@@ -1,4 +1,4 @@
-package com.ssafy.aejimeongji.api.dto.Calendar;
+package com.ssafy.aejimeongji.api.dto.calendar;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +10,8 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCalendarRequest {
+public class UpdateCalendarRequest {
 
-    private Long dogId;
     private String title;
     private String content;
     @DateTimeFormat(pattern = "yyyyMMdd")

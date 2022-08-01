@@ -1,4 +1,4 @@
-package com.ssafy.aejimeongji.api.dto.Calendar;
+package com.ssafy.aejimeongji.api.dto.calendar;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
