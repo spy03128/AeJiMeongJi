@@ -22,14 +22,9 @@ public class Walking {
 
     private LocalDateTime walkingDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    public Walking(String distance, String walkingTime, LocalDateTime walkingDate, Member member) {
+    public Walking(String distance, String walkingTime, LocalDateTime walkingDate) {
         this.distance = distance;
         this.walkingTime = walkingTime;
         this.walkingDate = walkingDate;
-        this.member = member;
     }
 }
