@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCalendarRequest {
+public class CalendarRequest {
 
     private String title;
     private String content;

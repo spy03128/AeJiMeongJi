@@ -1,9 +1,8 @@
 package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.calendar.CalendarTodosResponse;
-import com.ssafy.aejimeongji.api.dto.calendar.CreateCalendarRequest;
+import com.ssafy.aejimeongji.api.dto.calendar.CalendarRequest;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
-import com.ssafy.aejimeongji.api.dto.calendar.UpdateCalendarRequest;
 import com.ssafy.aejimeongji.domain.entity.Calendar;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.service.CalendarService;
@@ -55,7 +54,7 @@ public class CalendarApiController {
 
     @PostMapping("/dog/{dogId}/calendar")
     public ResponseEntity<ResponseDTO> createTodo(@PathVariable Long dogId,
-                                               @RequestBody CreateCalendarRequest request) {
+                                               @RequestBody CalendarRequest request) {
 
         log.info("{}번 강아지 Todo 생성", dogId);
 
@@ -67,7 +66,7 @@ public class CalendarApiController {
 
     @PutMapping("/calendar/{calendarId}")
     public ResponseEntity<ResponseDTO> updateTodo(@PathVariable Long calendarId,
-                                                  @RequestBody UpdateCalendarRequest request) {
+                                                  @RequestBody CalendarRequest request) {
 
         log.info("{}번 Todo 수정", calendarId);
 
