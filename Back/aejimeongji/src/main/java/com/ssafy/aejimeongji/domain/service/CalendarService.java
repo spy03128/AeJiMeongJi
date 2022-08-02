@@ -2,8 +2,10 @@ package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.domain.entity.Calendar;
 import com.ssafy.aejimeongji.domain.entity.Dog;
+import com.ssafy.aejimeongji.domain.entity.Todos;
 import com.ssafy.aejimeongji.domain.repository.CalendarRepository;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
+import com.ssafy.aejimeongji.domain.repository.TodosRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CalendarService {
 
     private final CalendarRepository calendarRepository;
+    private final TodosRepository todosRepository;
     private final DogRepository dogRepository;
 
     public Dog findDog(Long dogId) {
@@ -41,9 +44,9 @@ public class CalendarService {
     }
 
     @Transactional
-    public Long updateCalendar(Long id, String title, String content, LocalDate date) {
+    public Long updateCalendar(Long id, String content, LocalDate date, Boolean isActive, Boolean isAlert) {
         Calendar findCalendar = findTodo(id);
-        findCalendar.updateCalendar(title, content, date);
+        findCalendar.updateCalendar(content, date, isActive, isAlert);
         return findCalendar.getId();
     }
 
@@ -52,4 +55,27 @@ public class CalendarService {
         Calendar findCalendar = findTodo(id);
         calendarRepository.delete(findCalendar);
     }
+
+    // 메인 todo 노출
+
+    public Todos findTodos(Long calendarId) {
+        return todosRepository.findByCalendarId(calendarId);
+    }
+
+    @Transactional
+    public Long addTodos(Dog dog, Calendar calendar) {
+        Todos todos = new Todos(dog, calendar);
+        return todosRepository.save(todos).getId();
+    }
+
+    @Transactional
+    public void deleteTodos(Long calendarId) {
+        Todos todos = findTodos(calendarId);
+        todosRepository.delete(todos);
+    }
+
+    public List<Todos> findDogTodos(Long dogId) {
+        return todosRepository.findByDogId(dogId);
+    }
+
 }

@@ -10,13 +10,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CalendarTodosResponse {
 
-    private String title;
     private String content;
     private LocalDate date;
+    private Boolean isActive;
+    private Boolean isAlert;
 
     public CalendarTodosResponse(Calendar calendar) {
-        title = calendar.getTitle();
         content = calendar.getContent();
         date = calendar.getDate();
+        isActive = calendar.getIsActive();
+        isAlert = calendar.getIsAlert();
     }
 }

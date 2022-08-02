@@ -3,7 +3,6 @@ package com.ssafy.aejimeongji.domain.service;
 import com.ssafy.aejimeongji.domain.entity.*;
 import com.ssafy.aejimeongji.domain.repository.CalendarRepository;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
-import com.ssafy.aejimeongji.domain.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,14 +58,13 @@ class CalendarServiceTest {
         Dog dog = new Dog("DogTest", LocalDate.now(), Gender.Male, false, false, LocalDate.now(), member,
                 dogImage, breed);
 
-        Calendar calendar = new Calendar(dog, "제목1", "내용1", LocalDate.now());
+        Calendar calendar = new Calendar(dog, "내용1", LocalDate.now(), false, false);
         em.persist(calendar);
 
         //when
         Calendar calendarTest = calendarService.findTodo(calendar.getId());
 
         //then
-        assertEquals("제목1", calendarTest.getTitle(), "성공");
         assertEquals("내용1", calendarTest.getContent(), "성공");
 
     }
@@ -90,11 +88,11 @@ class CalendarServiceTest {
         em.persist(dog2);
 
         //when
-        Calendar calendar1 = new Calendar(dog1, "제목1" , "내용1" , LocalDate.now());
+        Calendar calendar1 = new Calendar(dog1,  "내용1" , LocalDate.now(), false, false);
         em.persist(calendar1);
-        Calendar calendar2 = new Calendar(dog2, "제목2" , "내용2" , LocalDate.now());
+        Calendar calendar2 = new Calendar(dog2, "내용2" , LocalDate.now(), false, false);
         em.persist(calendar2);
-        Calendar calendar3 = new Calendar(dog1, "제목3" , "내용3" , LocalDate.now());
+        Calendar calendar3 = new Calendar(dog1,  "내용3" , LocalDate.now(), false, false);
         em.persist(calendar3);
 
         List<Calendar> calendars = calendarService.findCalendar(calendar1.getDog().getId());
@@ -114,12 +112,11 @@ class CalendarServiceTest {
                 dogImage, breed);
 
         //when
-        Calendar calendar1 = new Calendar(dog1, "제목1" , "내용1" , LocalDate.now());
+        Calendar calendar1 = new Calendar(dog1, "내용1" , LocalDate.now(), false, false);
         Long calendarId = calendarService.createCalendar(calendar1);
 
         //then
         assertEquals(1, calendarId);
-        assertEquals("제목1", calendar1.getTitle());
 
     }
 
@@ -134,14 +131,14 @@ class CalendarServiceTest {
                 dogImage, breed);
 
         //when
-        Calendar calendar1 = new Calendar(dog1, "제목1" , "내용1" , LocalDate.now());
+        Calendar calendar1 = new Calendar(dog1,"내용1" , LocalDate.now(), false, false);
         Long calendarId = calendarService.createCalendar(calendar1);
-        Long updateCalendarId = calendarService.updateCalendar(calendarId, "수정제목", "수정내용", LocalDate.now());
+        Long updateCalendarId = calendarService.updateCalendar(calendarId, "수정내용", LocalDate.now(), false, false);
 
         //then
         assertEquals(1, calendarId);
         assertEquals(1, updateCalendarId);
-        assertEquals("수정제목", calendar1.getTitle());
+
     }
 
     @Test
@@ -155,7 +152,7 @@ class CalendarServiceTest {
                 dogImage, breed);
 
         //when
-        Calendar calendar1 = new Calendar(dog1, "제목1" , "내용1" , LocalDate.now());
+        Calendar calendar1 = new Calendar(dog1,  "내용1" , LocalDate.now(), false, false);
         Long calendarId = calendarService.createCalendar(calendar1);
         calendarService.deleteCalendar(calendarId);
 

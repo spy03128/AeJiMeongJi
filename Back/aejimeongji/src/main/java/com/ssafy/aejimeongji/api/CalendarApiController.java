@@ -5,6 +5,7 @@ import com.ssafy.aejimeongji.api.dto.calendar.CalendarRequest;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
 import com.ssafy.aejimeongji.domain.entity.Calendar;
 import com.ssafy.aejimeongji.domain.entity.Dog;
+import com.ssafy.aejimeongji.domain.entity.Todos;
 import com.ssafy.aejimeongji.domain.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,21 @@ public class CalendarApiController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/dog/{dogId}/calendar/main")
+    public ResponseEntity<?> getMainTodo(@PathVariable Long dogId) {
+
+        log.info("{}번 강아지 메인 Todos 노출", dogId);
+
+        List<Todos> list = calendarService.findDogTodos(dogId);
+        List<CalendarTodosResponse> response = list.stream()
+                .filter(o -> o.getCalendar().getIsActive())
+                .map(o -> new CalendarTodosResponse(o.getCalendar()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(response);
+
+    }
+
     @PostMapping("/dog/{dogId}/calendar")
     public ResponseEntity<ResponseDTO> createTodo(@PathVariable Long dogId,
                                                @RequestBody CalendarRequest request) {
@@ -59,7 +75,12 @@ public class CalendarApiController {
         log.info("{}번 강아지 Todo 생성", dogId);
 
         Dog dog = calendarService.findDog(dogId);
-        calendarService.createCalendar(new Calendar(dog, request.getTitle(), request.getContent(), request.getDate()));
+        Calendar calendar = new Calendar(dog, request.getContent(), request.getDate(), request.getIsActive(), request.getIsAlert());
+        calendarService.createCalendar(calendar);
+
+        if (request.getIsActive()) {
+            calendarService.addTodos(dog, calendar);
+        }
 
         return ResponseEntity.ok(new ResponseDTO("Todo가 생성되었습니다."));
     }
@@ -70,7 +91,16 @@ public class CalendarApiController {
 
         log.info("{}번 Todo 수정", calendarId);
 
-        calendarService.updateCalendar(calendarId, request.getTitle(), request.getContent(), request.getDate());
+        Boolean todos = calendarService.findTodos(calendarId).getCalendar().getIsActive();
+
+        if (todos && !request.getIsActive()) {
+            calendarService.deleteTodos(calendarId);
+        } else if (!todos && request.getIsActive()) {
+            calendarService.addTodos(calendarService.findTodo(calendarId).getDog(), calendarService.findTodo(calendarId));
+        }
+
+        calendarService.updateCalendar(calendarId, request.getContent(), request.getDate(), request.getIsActive(), request.getIsAlert());
+
 
         return ResponseEntity.ok(new ResponseDTO("Todo를 수정하였습니다."));
     }
@@ -79,6 +109,10 @@ public class CalendarApiController {
     public ResponseEntity<ResponseDTO> deleteTodo(@PathVariable Long calendarId) {
 
         log.info("{}번 Todo 삭제", calendarId);
+
+        if (calendarService.findTodo(calendarId).getIsActive()) {
+            calendarService.deleteTodos(calendarId);
+        }
 
         calendarService.deleteCalendar(calendarId);
 

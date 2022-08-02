@@ -11,8 +11,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CalendarRequest {
 
-    private String title;
     private String content;
     private LocalDate date;
+    private Boolean isActive;
+    private Boolean isAlert;
 
 }
