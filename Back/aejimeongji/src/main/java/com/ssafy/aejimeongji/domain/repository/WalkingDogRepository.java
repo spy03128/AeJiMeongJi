@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface WalkingDogRepository extends JpaRepository<WalkingDog, Long> {
 
-    @Query("select wd from WalkingDog wd join fetch wd.dog d join fetch wd.walking w where wd.dog = :dogId")
+    @Query("select wd from WalkingDog wd join fetch wd.dog d join fetch wd.walking w where d.id = :dogId")
     List<WalkingDog> findByDogId(@Param("dogId") Long dogId);
 }
