@@ -22,8 +22,6 @@ public class DogService {
     private final DogRepository dogRepository;
     private final BreedRepository breedRepository;
 
-    private final MemberService memberService;
-
     // 견종 조회
     public Breed findBreed(String breedName) {
         return breedRepository.findBreedByBreedName(breedName);
