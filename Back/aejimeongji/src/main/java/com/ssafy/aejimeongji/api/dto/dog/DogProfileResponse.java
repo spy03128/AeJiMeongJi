@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class DogProfileResponse {
     private Long dogId;
     private String name;
-    private double weight;
     private LocalDate birthdate;
     private LocalDate adoptedDay;
     private String breedName;
@@ -19,10 +18,13 @@ public class DogProfileResponse {
     public DogProfileResponse(Dog dog) {
         dogId = dog.getId();
         name = dog.getName();
-        weight = dog.getWeight();
         birthdate = dog.getBirthdate();
         adoptedDay = dog.getAdoptedDay();
         breedName = dog.getBreed().getBreedName();
+    }
+
+    public static DogProfileResponse toDTO(Dog dog) {
+        return new DogProfileResponse(dog);
     }
 
 }
