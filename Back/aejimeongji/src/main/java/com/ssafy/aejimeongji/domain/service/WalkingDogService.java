@@ -23,6 +23,7 @@ public class WalkingDogService {
     private final WalkingRepository walkingRepository;
     private final DogRepository dogRepository;
 
+    @Transactional
     public Long saveWalking(Walking walking) {
         return walkingRepository.save(walking).getId();
     }
