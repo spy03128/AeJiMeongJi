@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Colors} from '../../constants/styles';
+import Profile from '../../components/Home/Profile';
 
 const MainHome = ({navigation}) => {
   const num = 0;
@@ -42,40 +43,22 @@ const MainHome = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.contentbox}>
-          <View style={styles.profile}>
-            <View style={styles.profile1}>
-              <View style={styles.profile1sub1}>
-                <View style={styles.name1}>
-                  <Image
-                    style={{
-                      width: '80%',
-                      height: '80%',
-                    }}
-                    resizeMode="contain"
-                    source={require('../../Assets/image/name-icon.png')}
-                  />
-                </View>
-                <View style={styles.name2}>
-                  <Text style={[styles.font, styles.subText]}>박베리</Text>
-                </View>
-              </View>
-              <View style={styles.profile1sub2}>
-                <Text style={[styles.font, styles.subText]}>가족이 된 지</Text>
-                <Text style={[styles.font, styles.dday]}>D+2039</Text>
-              </View>
-            </View>
-            <View style={styles.profile2}>
+          <Profile />
+
+          <View style={styles.guidebox}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignSelf: 'center',
+              }}>
               <Image
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: 100,
-                  borderColor: Colors.contentText,
-                  borderWidth: 2,
-                }}
+                style={styles.notice}
                 resizeMode="contain"
-                source={require('../../Assets/image/박베리.png')}
+                source={require('../../Assets/image/notice-logo.png')}
               />
+              <Text style={[styles.font, styles.titleText4]}>
+                예방접종한 지 일년이 지났어요!
+              </Text>
             </View>
           </View>
 
@@ -110,19 +93,6 @@ const MainHome = ({navigation}) => {
             </View>
           </View>
 
-          <View style={styles.guidebox}>
-            <Text style={[styles.font, styles.titleText]}>
-              강아지에게
-              <Text style={{color: Colors.btnBack100}}> 초콜렛</Text>
-              <Text>은 절대 안돼요!</Text>
-            </Text>
-            <Text style={[styles.contentFont, styles.contentText]}>
-              여기에 필요한 내용을 적는거야 예를 들면 예방 접종이 얼마 남지
-              않았다 뭐이런 이야기도 적고 이번주에 꼭 해야하는 일 이런걸
-              데이터베이스에 저장해두고 알려주는거지 그렇게 하면 여기를 채울 수
-              있지 않ㅇ르까?
-            </Text>
-          </View>
           <View style={styles.box}>
             <View
               style={{
@@ -344,6 +314,12 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
     color: Colors.contentText,
   },
+  titleText4: {
+    fontSize: 14,
+    lineHeight: 40,
+    letterSpacing: 2,
+    color: Colors.contentText,
+  },
   contentText: {
     fontSize: 12,
     lineHeight: 20,
@@ -376,6 +352,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     maxWidth: '50%',
     maxHeight: '60%',
+  },
+  notice: {
+    maxWidth: '20%',
+    maxHeight: '100%',
   },
   runicon: {
     marginTop: 5,
@@ -434,7 +414,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   runningbox: {
-    height: 150,
+    height: 350,
     alignSelf: 'center',
     backgroundColor: Colors.contentBox,
     width: '80%',
@@ -463,24 +443,16 @@ const styles = StyleSheet.create({
   },
 
   guidebox: {
-    height: 170,
+    height: 70,
     alignSelf: 'center',
-    backgroundColor: Colors.contentBox,
     width: '80%',
-    marginTop: 20,
-    marginBottom: 70,
-    borderRadius: 20,
     paddingLeft: 20,
     paddingTop: 10,
+    paddingBottom: 20,
     paddingRight: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
+    marginTop: -10,
+    borderBottomColor: Colors.btnBack100,
+    borderBottomWidth: 1,
   },
   box: {
     alignSelf: 'center',
