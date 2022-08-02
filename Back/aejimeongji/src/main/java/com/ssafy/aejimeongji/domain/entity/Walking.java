@@ -16,13 +16,13 @@ public class Walking {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String distance;
+    private double distance;
 
     private String walkingTime;
 
     private LocalDateTime walkingDate;
 
-    public Walking(String distance, String walkingTime, LocalDateTime walkingDate) {
+    public Walking(double distance, String walkingTime, LocalDateTime walkingDate) {
         this.distance = distance;
         this.walkingTime = walkingTime;
         this.walkingDate = walkingDate;
