@@ -12,6 +12,7 @@ import Profile from '../../components/Home/Profile';
 import Running from '../../components/Home/Running';
 import Navbar from './../../components/nav/Navbar';
 import Place from '../../components/Home/Place';
+import Guide from '../../components/Home/Guide';
 
 const MainHome = ({navigation}) => {
   var [isPress, setIsPress] = React.useState(false);
@@ -94,29 +95,7 @@ const MainHome = ({navigation}) => {
 
           <Place />
 
-          <View style={styles.box}>
-            <View
-              style={{
-                flexDirection: 'row',
-                height: 40,
-                justifyContent: 'space-between',
-              }}>
-              <Text style={[styles.font, styles.subText]}>애견 가이드</Text>
-            </View>
-
-            <View style={styles.guideclickbox}>
-              <Image
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: 20,
-                  marginTop: -10,
-                }}
-                resizeMode="contain"
-                source={require('../../Assets/image/banner1.jpg')}
-              />
-            </View>
-          </View>
+          <Guide />
         </View>
       </View>
     </ScrollView>
@@ -131,12 +110,6 @@ const styles = StyleSheet.create({
   contentFont: {
     fontFamily: 'ONE Mobile Regular',
     fontWeight: 'bold',
-  },
-  dday: {
-    fontSize: 31,
-    lineHeight: 40,
-    letterSpacing: 4,
-    color: Colors.btnBack100,
   },
 
   mainText: {
@@ -197,12 +170,6 @@ const styles = StyleSheet.create({
     maxWidth: '20%',
     maxHeight: '100%',
   },
-  runicon: {
-    marginTop: 5,
-    maxWidth: '70%',
-    maxHeight: '60%',
-  },
-
   logo: {
     marginTop: 50,
     maxWidth: '60%',
@@ -274,38 +241,5 @@ const styles = StyleSheet.create({
     maxWidth: '40%',
     maxHeight: '80%',
     marginRight: -20,
-  },
-
-  placebox: {
-    height: 240,
-    width: '100%',
-    borderRadius: 20,
-    marginBottom: 20,
-  },
-  placesubBox: {
-    flexDirection: 'row',
-    marginBottom: -10,
-  },
-  placesubcontent: {
-    flex: 1,
-  },
-  guideclickbox: {
-    height: 150,
-    alignSelf: 'center',
-    backgroundColor: Colors.contentBox,
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 20,
-    borderRadius: 20,
-    flexDirection: 'row',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-
-    elevation: 8,
   },
 });
