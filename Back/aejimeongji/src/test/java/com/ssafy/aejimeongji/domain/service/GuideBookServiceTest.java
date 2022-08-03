@@ -2,6 +2,7 @@ package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.domain.entity.GuideBook;
 import com.ssafy.aejimeongji.domain.repository.GuideBookRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,19 @@ class GuideBookServiceTest {
         assertThat(guideBook.getCategory()).isEqualTo("미용");
         assertThat(guideBook.getDogAge()).isEqualTo(1);
         assertThat(guideBook.getDogWeight()).isEqualTo(2);
+    }
+
+    @Test
+    void deleteGuideBook() {
+        // given
+        GuideBook guideBook = new GuideBook("제목", "내용", "의료", 10, 1);
+        em.persist(guideBook);
+        Long savedGuideBookId = guideBookService.saveGuideBook(guideBook);
+
+        // when
+        guideBookService.deleteGuideBook(savedGuideBookId);
+
+        // then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> guideBookService.findGuideBook(savedGuideBookId));
     }
 }
