@@ -1,4 +1,4 @@
-package com.ssafy.aejimeongji.api.dto;
+package com.ssafy.aejimeongji.api.dto.petPlace;
 
 import lombok.Data;
 

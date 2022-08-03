@@ -3,6 +3,7 @@ package com.ssafy.aejimeongji.domain.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -25,20 +26,17 @@ public class PetPlace {
 
     private String category;
 
-    private String lat;
-
-    private String lng;
+    private Point point;
 
     private String openingHours;
 
-    public PetPlace(String name, String description, String address, String tel, String category, String lat, String lng, String openingHours) {
+    public PetPlace(String name, String description, String address, String tel, String category, Point point, String openingHours) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.tel = tel;
         this.category = category;
-        this.lat = lat;
-        this.lng = lng;
+        this.point = point;
         this.openingHours = openingHours;
     }
 }
