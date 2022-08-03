@@ -34,4 +34,12 @@ public class GuideBookService {
     public Long saveGuideBook(GuideBook guideBook) {
         return guideBookRepository.save(guideBook).getId();
     }
+
+    // 가이드 수정
+    @Transactional
+    public Long updateGuideBook(Long guideId, String newTitle, String newContent, String newCategory, int newDogAge, int newDogWeight) {
+        GuideBook findGuide = findGuideBook(guideId);
+        findGuide.updateGuideBook(newTitle, newContent, newCategory, newDogAge, newDogWeight);
+        return findGuide.getId();
+    }
 }
