@@ -50,7 +50,7 @@ const Running = () => {
       </View>
       <View style={styles.runData}>
         <Text style={[styles.font, styles.font20, styles.line40]}>
-          이번주 산책횟수
+          이번주 산책횟수{' '}
           <Text style={{color: Colors.btnBack100}}> {num[current]}</Text>
           <Text>회</Text>
         </Text>
@@ -60,11 +60,11 @@ const Running = () => {
           </Text>
         ) : (
           <Text style={[styles.font, styles.font18, styles.line40]}>
-            합산기록
+            합산기록{'  '}
             <Text style={{color: Colors.btnBack100}}> {min[current - 1]}</Text>
-            <Text>분</Text>
+            <Text> 분{'  '}</Text>
             <Text style={{color: Colors.btnBack100}}>{km[current - 1]}</Text>
-            <Text>km</Text>
+            <Text> km</Text>
           </Text>
         )}
       </View>

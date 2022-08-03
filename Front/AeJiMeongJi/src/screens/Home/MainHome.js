@@ -10,36 +10,14 @@ import {
 import {Colors} from '../../constants/styles';
 import Profile from '../../components/Home/Profile';
 import Running from '../../components/Home/Running';
+import Navbar from './../../components/nav/Navbar';
 
 const MainHome = ({navigation}) => {
   var [isPress, setIsPress] = React.useState(false);
   return (
     <ScrollView>
       <View style={styles.rootContainer}>
-        <View style={styles.nav}>
-          <Image
-            style={styles.none}
-            resizeMode="contain"
-            source={require('../../Assets/image/calendarLogo.png')}
-          />
-          <Image
-            style={styles.logo2}
-            resizeMode="contain"
-            source={require('../../Assets/image/logo2.png')}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('CalendarHome');
-            }}
-            style={{paddingLeft: 24}}>
-            <Image
-              style={styles.calendarLogo}
-              resizeMode="contain"
-              source={require('../../Assets/image/calendarLogo.png')}
-              title="Calendar"
-            />
-          </TouchableOpacity>
-        </View>
+        <Navbar />
         <View style={styles.contentbox}>
           <Profile />
 
@@ -299,29 +277,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.back100,
   },
-  nav: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
+
   contentbox: {
     flex: 14,
     justifyContent: 'center',
     backgroundColor: Colors.back100,
   },
-  none: {
-    marginTop: 5,
-    marginRight: 10,
-    maxWidth: '20%',
-    maxHeight: '80%',
-    opacity: 0,
-  },
-  logo2: {
-    marginTop: 5,
-    maxWidth: '50%',
-    maxHeight: '60%',
-  },
+
   notice: {
     maxWidth: '20%',
     maxHeight: '100%',
@@ -331,12 +293,7 @@ const styles = StyleSheet.create({
     maxWidth: '70%',
     maxHeight: '60%',
   },
-  calendarLogo: {
-    marginTop: 5,
-    marginRight: 10,
-    maxWidth: '40%',
-    maxHeight: '80%',
-  },
+
   logo: {
     marginTop: 50,
     maxWidth: '60%',
