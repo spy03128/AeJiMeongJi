@@ -4,8 +4,19 @@ import React, {useEffect} from 'react';
 import {StatusBar, Text, View} from 'react-native';
 import MainHome from './src/screens/Home/MainHome';
 import Initial from './src/screens/Initial';
+<<<<<<< HEAD
 
 
+=======
+import LoginScreen from './src/screens/Auth/LoginScreen';
+import SignupScreen from './src/screens/Auth/SignupScreen';
+import RunningHome from './src/screens/Running/RunningHome';
+import GuideHome from './src/screens/Guide/GuideHome';
+import GuideCategory from './src/screens/Guide/GuideCategory';
+import GuideDetail from './src/screens/Guide/GuideDetail';
+import CalendarHome from './src/screens/Calendar/CalendarHome';
+import TodoUpload from './src/screens/Calendar/TodoUpload';
+>>>>>>> b9da6f39ff22b42db351d49e035280c3ed9613fc
 
 const Stack = createNativeStackNavigator();
 
@@ -15,10 +26,21 @@ const AuthenticatedStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Initial" component={Initial} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Running" component={RunningHome} />
       <Stack.Screen name="Home" component={MainHome} />
+<<<<<<< HEAD
       <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
       <Stack.Screen name="ProfileHome2" component={ProfileHomeScreen2} />
+=======
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="Guide" component={GuideHome} />
+      <Stack.Screen name="GuideCategory" component={GuideCategory} />
+      <Stack.Screen name="GuideDetail" component={GuideDetail} />
+      <Stack.Screen name="Calendar" component={CalendarHome} />
+      <Stack.Screen name="TodoUpload" component={TodoUpload} />
+>>>>>>> b9da6f39ff22b42db351d49e035280c3ed9613fc
     </Stack.Navigator>
   );
 };

@@ -11,13 +11,19 @@ import RunningHome from '../screens/Running/RunningHome';
 import ProfileHomeScreen from '../screens/Profile/ProfileHomeScreen';
 import ProfileHomeScreen2 from '../screens/Profile/ProfileHomeScreen2';
 import ProfileChoiceScreen from '../screens/Profile/ProfileChoiceScreen';
+import GuideHome from '../screens/Guide/GuideHome';
+import GuideDetail from '../screens/Guide/GuideDetail';
+import GuideCategory from '../screens/Guide/GuideCategory';
+import CalendarHome from '../screens/Calendar/CalendarHome';
+import TodoUpload from '../screens/Calendar/TodoUpload';
+
 
 const Stack = createNativeStackNavigator();
 
 // 로그인 back 연동 후 Initial, running mainhome 삭제
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="RunningHome" component={RunningHome} />
       <Stack.Screen name="Home" component={MainHome} />
@@ -40,7 +46,11 @@ const AuthStack = () => {
       <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
       <Stack.Screen name="ProfileHome2" component={ProfileHomeScreen2} />
       <Stack.Screen name="프로필 편집" component={ProfileChoiceScreen} />
-      
+      <Stack.Screen name="GuideHome" component={GuideHome} />
+      <Stack.Screen name="GuideDetail" component={GuideDetail} />
+      <Stack.Screen name="GuideCategory" component={GuideCategory} />
+      <Stack.Screen name="CalendarHome" component={CalendarHome} />
+      <Stack.Screen name="TodoUpload" component={TodoUpload} />
     </Stack.Navigator>
   );
 };
