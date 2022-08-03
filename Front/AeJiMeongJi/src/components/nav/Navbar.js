@@ -44,14 +44,16 @@ const navbar = () => {
 export default navbar;
 
 const styles = StyleSheet.create({
+  //글꼴
   font: {
     fontFamily: 'ONE Mobile POP',
+    letterSpacing: 4,
+    color: Colors.contentText,
   },
   contentFont: {
     fontFamily: 'ONE Mobile Regular',
     fontWeight: 'bold',
   },
-
   nav: {
     height: 50,
     alignItems: 'center',

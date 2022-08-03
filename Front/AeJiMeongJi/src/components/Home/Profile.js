@@ -67,17 +67,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   //글자 크기
-  font18: {
-    fontSize: 18,
-  },
-  font20: {
-    fontSize: 20,
-  },
-  line20: {
-    lineHeight: 20,
-  },
-  line40: {
-    lineHeight: 40,
+  font10: {fontSize: 10},
+  font12: {fontSize: 12},
+  font14: {fontSize: 14},
+  font18: {fontSize: 18},
+  font20: {fontSize: 20},
+  line20: {lineHeight: 20},
+  line40: {lineHeight: 40},
+  self: {
+    alignSelf: 'center',
   },
 
   profile: {

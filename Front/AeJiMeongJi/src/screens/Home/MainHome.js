@@ -11,6 +11,7 @@ import {Colors} from '../../constants/styles';
 import Profile from '../../components/Home/Profile';
 import Running from '../../components/Home/Running';
 import Navbar from './../../components/nav/Navbar';
+import Place from '../../components/Home/Place';
 
 const MainHome = ({navigation}) => {
   var [isPress, setIsPress] = React.useState(false);
@@ -91,99 +92,7 @@ const MainHome = ({navigation}) => {
             </View>
           </View>
 
-          <View style={styles.box}>
-            <View
-              style={{
-                flexDirection: 'row',
-                height: 40,
-                justifyContent: 'space-between',
-              }}>
-              <Text style={[styles.font, styles.subText]}>인기 방문 장소</Text>
-              <Image
-                style={styles.plus}
-                resizeMode="contain"
-                source={require('../../Assets/image/plus.png')}
-              />
-            </View>
-
-            <View style={styles.placebox}>
-              <Image
-                style={{
-                  width: '100%',
-                  height: 200,
-                  borderRadius: 20,
-                }}
-                resizeMode="cover"
-                source={require('../../Assets/image/강아지숲.png')}
-              />
-              <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={[styles.font, styles.subText]}>
-                  강아지 숲
-                  <Text style={[styles.font, styles.titleText2]}>
-                    {'  '}테마파크
-                  </Text>
-                </Text>
-                <Text style={{lineHeight: 40, marginRight: 10}}>
-                  <Text style={{color: 'red'}}>★ </Text>4.3/5
-                </Text>
-              </View>
-            </View>
-            <View style={[styles.placebox, styles.placesubBox]}>
-              <View style={[styles.placesubcontent, {marginRight: 5}]}>
-                <Image
-                  style={{
-                    width: '100%',
-                    height: 150,
-                    borderRadius: 20,
-                  }}
-                  resizeMode="cover"
-                  source={require('../../Assets/image/마이무.png')}
-                />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={[styles.font, styles.titleText]}>
-                    마이무
-                    <Text style={[styles.font, styles.titleText3]}>
-                      {'  '}동물사료제조
-                    </Text>
-                  </Text>
-                </View>
-                <Text style={{lineHeight: 20, marginRight: 10}}>
-                  <Text style={{color: 'red'}}>★ </Text>4.21/5
-                </Text>
-              </View>
-              <View style={[styles.placesubcontent, {marginLeft: 5}]}>
-                <Image
-                  style={{
-                    width: '100%',
-                    height: 150,
-                    borderRadius: 20,
-                  }}
-                  resizeMode="cover"
-                  source={require('../../Assets/image/쿨쿨펫.png')}
-                />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={[styles.font, styles.titleText]}>
-                    쿨쿨펫
-                    <Text style={[styles.font, styles.titleText3]}>
-                      {'  '}반려동물호텔
-                    </Text>
-                  </Text>
-                </View>
-                <Text style={{lineHeight: 20, marginRight: 10}}>
-                  <Text style={{color: 'red'}}>★ </Text>4.8/5
-                </Text>
-              </View>
-            </View>
-          </View>
+          <Place />
 
           <View style={styles.box}>
             <View
