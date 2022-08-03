@@ -2,28 +2,46 @@ package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.domain.entity.Breed;
 import com.ssafy.aejimeongji.domain.entity.Dog;
+import com.ssafy.aejimeongji.domain.entity.Member;
+import com.ssafy.aejimeongji.domain.repository.BreedRepository;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class DogService {
 
     private final DogRepository dogRepository;
+    private final BreedRepository breedRepository;
 
-    public DogService(DogRepository dogRepository) {
-        this.dogRepository = dogRepository;
+    // 견종 조회
+    public Breed findBreed(String breedName) {
+        return breedRepository.findBreedByBreedName(breedName);
+    }
+
+    // 강아지 프로필 목록 조회
+    public List<Dog> findDogList(Long memberId) {
+        List<Dog> dogList = dogRepository.findDogsByMemberId(memberId);
+        dogList.forEach(
+                dog -> dog.getBreed().getBreedName()
+        );
+        return dogList;
     }
 
     // 강아지 프로필 상세 조회
     public Dog findDog(Long dogId) {
-        return dogRepository.findById(dogId)
+        Dog dog = dogRepository.findById(dogId)
                 .orElseThrow(() -> new IllegalArgumentException("조회하신 강아지가 존재하지 않습니다."));
+        dog.getBreed().getBreedName();
+        return dog;
     }
 
     // 강아지 프로필 등록
@@ -34,9 +52,9 @@ public class DogService {
 
     // 강아지 프로필 수정
     @Transactional
-    public Long updateDog(Long dogId, String newName, LocalDate newBirthdate, LocalDate newAdoptedDay, Breed newBreed) {
+    public Long updateDog(Long dogId, String newName, double newWeight, LocalDate newBirthdate, LocalDate newAdoptedDay, Breed newBreed) {
         Dog findDog = findDog(dogId);
-        findDog.updateDog(newName, newBirthdate, newAdoptedDay, newBreed);
+        findDog.updateDog(newName, newWeight, newBirthdate, newAdoptedDay, newBreed);
         return findDog.getId();
     }
 
