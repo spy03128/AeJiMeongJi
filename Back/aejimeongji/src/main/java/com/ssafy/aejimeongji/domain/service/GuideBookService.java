@@ -42,4 +42,11 @@ public class GuideBookService {
         findGuide.updateGuideBook(newTitle, newContent, newCategory, newDogAge, newDogWeight);
         return findGuide.getId();
     }
+
+    // 가이드 삭제
+    @Transactional
+    public void deleteGuideBook(Long guidId) {
+        GuideBook findGuide = findGuideBook(guidId);
+        guideBookRepository.delete(findGuide);
+    }
 }
