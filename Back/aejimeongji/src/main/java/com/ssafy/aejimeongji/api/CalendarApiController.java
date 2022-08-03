@@ -1,8 +1,9 @@
 package com.ssafy.aejimeongji.api;
 
-import com.ssafy.aejimeongji.api.dto.calendar.CalendarTodosResponse;
+import com.ssafy.aejimeongji.api.dto.calendar.CalendarResponse;
 import com.ssafy.aejimeongji.api.dto.calendar.CalendarRequest;
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
+import com.ssafy.aejimeongji.api.dto.calendar.TodosResponse;
 import com.ssafy.aejimeongji.domain.entity.Calendar;
 import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.Todos;
@@ -31,23 +32,23 @@ public class CalendarApiController {
         log.info("{}번 강아지 Todos", dogId);
 
         List<Calendar> list = calendarService.findCalendar(dogId);
-        List<CalendarTodosResponse> response = list.stream()
-                .map(o -> new CalendarTodosResponse(o))
+        List<CalendarResponse> response = list.stream()
+                .map(o -> new CalendarResponse(o))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/dog/{dogId}/calendar/{date}")
-    public ResponseEntity<?> getTodo(@PathVariable("dogId") Long dogId,
-                                     @PathVariable("date") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date) {
+    public ResponseEntity<List<CalendarResponse>> getTodo(@PathVariable("dogId") Long dogId,
+                                                          @PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 
         log.info("{}번 강아지 {}일의 Todos", dogId, date);
 
         List<Calendar> list = calendarService.findCalendar(dogId);
-        List<CalendarTodosResponse> response = list.stream()
+        List<CalendarResponse> response = list.stream()
                 .filter(o -> o.getDate().isEqual(date))
-                .map(o -> new CalendarTodosResponse(o))
+                .map(o -> new CalendarResponse(o))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(response);
@@ -56,16 +57,15 @@ public class CalendarApiController {
     @GetMapping("/dog/{dogId}/calendar/main")
     public ResponseEntity<?> getMainTodo(@PathVariable Long dogId) {
 
-        log.info("{}번 강아지 메인 Todos 노출", dogId);
-
-        List<Todos> list = calendarService.findDogTodos(dogId);
-        List<CalendarTodosResponse> response = list.stream()
-                .filter(o -> o.getCalendar().getIsActive())
-                .map(o -> new CalendarTodosResponse(o.getCalendar()))
+        List<Todos> todos = calendarService.findMainTodos(dogId);
+        List<TodosResponse> response = todos.stream()
+                .limit(3)
+                .map(o -> new TodosResponse(o.getCalendar().getId(), o.getCalendar().getContent(),
+                        o.getCalendar().getDate()))
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(response);
 
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/dog/{dogId}/calendar")
@@ -74,12 +74,13 @@ public class CalendarApiController {
 
         log.info("{}번 강아지 Todo 생성", dogId);
 
+
         Dog dog = calendarService.findDog(dogId);
         Calendar calendar = new Calendar(dog, request.getContent(), request.getDate(), request.getIsActive(), request.getIsAlert());
         calendarService.createCalendar(calendar);
 
         if (request.getIsActive()) {
-            calendarService.addTodos(dog, calendar);
+            calendarService.saveMainTodos(new Todos(dog, calendar));
         }
 
         return ResponseEntity.ok(new ResponseDTO("Todo가 생성되었습니다."));
@@ -91,16 +92,24 @@ public class CalendarApiController {
 
         log.info("{}번 Todo 수정", calendarId);
 
-        Boolean todos = calendarService.findTodos(calendarId).getCalendar().getIsActive();
+        List<Todos> todos = calendarService.findTodosAll();
 
-        if (todos && !request.getIsActive()) {
-            calendarService.deleteTodos(calendarId);
-        } else if (!todos && request.getIsActive()) {
-            calendarService.addTodos(calendarService.findTodo(calendarId).getDog(), calendarService.findTodo(calendarId));
-        }
+        boolean isTodo = todos.stream()
+                .anyMatch(o -> o.getCalendar().getId().equals(calendarId));
+
 
         calendarService.updateCalendar(calendarId, request.getContent(), request.getDate(), request.getIsActive(), request.getIsAlert());
 
+
+        // true -> false
+        if (isTodo && !request.getIsActive()) {
+            Long todoId = calendarService.findTodosByCalendar(calendarId).getId();
+            calendarService.deleteMainTodos(todoId);
+        } else if (!isTodo && request.getIsActive()) {
+          // false -> true
+            Calendar calendar = calendarService.findTodo(calendarId);
+            calendarService.saveMainTodos(new Todos(calendar.getDog(), calendar));
+        }
 
         return ResponseEntity.ok(new ResponseDTO("Todo를 수정하였습니다."));
     }
@@ -110,10 +119,14 @@ public class CalendarApiController {
 
         log.info("{}번 Todo 삭제", calendarId);
 
-        if (calendarService.findTodo(calendarId).getIsActive()) {
-            calendarService.deleteTodos(calendarId);
-        }
+        List<Todos> todos = calendarService.findTodosAll();
 
+        boolean isTodo = todos.stream()
+                .anyMatch(o -> o.getCalendar().getId().equals(calendarId));
+
+        if (isTodo) {
+            calendarService.deleteMainTodos(calendarService.findTodosByCalendar(calendarId).getId());
+        }
         calendarService.deleteCalendar(calendarId);
 
         return ResponseEntity.ok(new ResponseDTO("Todo를 삭제하였습니다."));

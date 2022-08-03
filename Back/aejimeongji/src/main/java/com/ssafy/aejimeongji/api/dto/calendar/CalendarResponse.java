@@ -1,21 +1,23 @@
 package com.ssafy.aejimeongji.api.dto.calendar;
 
 import com.ssafy.aejimeongji.domain.entity.Calendar;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
-public class CalendarTodosResponse {
+@NoArgsConstructor
+public class CalendarResponse {
 
+    private Long id;
     private String content;
     private LocalDate date;
     private Boolean isActive;
     private Boolean isAlert;
 
-    public CalendarTodosResponse(Calendar calendar) {
+    public CalendarResponse(Calendar calendar) {
+        id = calendar.getId();
         content = calendar.getContent();
         date = calendar.getDate();
         isActive = calendar.getIsActive();

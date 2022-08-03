@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -56,26 +57,32 @@ public class CalendarService {
         calendarRepository.delete(findCalendar);
     }
 
-    // 메인 todo 노출
+    // todos
+    public List<Todos> findTodosAll() {
+        return todosRepository.findAllBy();
+    }
 
-    public Todos findTodos(Long calendarId) {
-        return todosRepository.findByCalendarId(calendarId);
+    public Todos findTodos(Long id) {
+        return todosRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("요청한 todo가 존재하지 않습니다."));
+    }
+
+    public List<Todos> findMainTodos(Long dogId) {
+        return todosRepository.findTodosByDogId(dogId);
+    }
+
+    public Todos findTodosByCalendar(Long calendarId) {
+        return todosRepository.findTodosByCalendarId(calendarId);
     }
 
     @Transactional
-    public Long addTodos(Dog dog, Calendar calendar) {
-        Todos todos = new Todos(dog, calendar);
+    public Long saveMainTodos(Todos todos) {
         return todosRepository.save(todos).getId();
     }
 
     @Transactional
-    public void deleteTodos(Long calendarId) {
-        Todos todos = findTodos(calendarId);
+    public void deleteMainTodos(Long id) {
+        Todos todos = findTodos(id);
         todosRepository.delete(todos);
     }
-
-    public List<Todos> findDogTodos(Long dogId) {
-        return todosRepository.findByDogId(dogId);
-    }
-
 }
