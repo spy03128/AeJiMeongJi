@@ -9,15 +9,17 @@ import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.DogImage;
 import com.ssafy.aejimeongji.domain.entity.Member;
 import com.ssafy.aejimeongji.domain.service.BreedService;
+import com.ssafy.aejimeongji.api.dto.image.DogProfileImageRequest;
+import com.ssafy.aejimeongji.domain.entity.*;
 import com.ssafy.aejimeongji.domain.service.DogService;
 import com.ssafy.aejimeongji.domain.service.MemberService;
+import com.ssafy.aejimeongji.domain.util.ImageUploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -28,15 +30,7 @@ public class DogApiController {
     private final DogService dogService;
     private final BreedService breedService;
     private final MemberService memberService;
-
-    @GetMapping("")
-    public ResponseEntity<List<DogProfileResponse>> getDogList(@PathVariable("memberId") Long memberId) {
-        log.info("사용자 {}의 강아지 프로필 목록 조회 요청", memberId);
-        List<Dog> dogList = dogService.findDogList(memberId);
-        List<DogProfileResponse> dogProfileResponseList = dogList.stream()
-                .map(DogProfileResponse::toDTO).collect(Collectors.toList());
-        return ResponseEntity.ok().body(dogProfileResponseList);
-    }
+    private final ImageUploader imageUploader;
 
     @GetMapping("/{dogId}/profile")
     public ResponseEntity<DogProfileResponse> getDog(@PathVariable("memberId") Long memberId, @PathVariable("dogId") Long dogId) {
@@ -50,8 +44,7 @@ public class DogApiController {
         log.info("강아지 프로필 등록 요청");
         Member member = memberService.findMember(memberId);
         Breed breed = breedService.findBreed(request.getBreed().getBreedName());
-        DogImage image = new DogImage("originTestName", "storeTestName");   // 이미지 아직 없음
-        Long savedId = dogService.saveDog(request.convertDog(member, breed, image));
+        Long savedId = dogService.saveDog(request.convertDog(member, breed, null));
         return ResponseEntity.ok(new ResponseDTO("강아지 프로필 " + savedId + " 등록이 완료되었습니다."));
     }
 
@@ -68,5 +61,34 @@ public class DogApiController {
         log.info("강아지 프로필 {} 삭제 요청", dogId);
         dogService.deleteDog(dogId);
         return ResponseEntity.ok(new ResponseDTO("강아지 프로필 "+ dogId + " 삭제가 완료되었습니다."));
+    }
+
+    @GetMapping("/{dogId}/profileimage")
+    public ResponseEntity<DogProfileResponse> getDogProfileImage(@PathVariable("dogId") Long dogId) {
+        log.info("강아지 프로필 {} 프로필이미지 요청", dogId);
+        Dog dog = dogService.findDog(dogId);
+        return ResponseEntity.ok().body(new DogProfileResponse(dog));
+    }
+
+    @PostMapping("/{dogId}/profileimage")
+    public ResponseEntity<ResponseDTO> saveDogProfileImage(@PathVariable("dogId") Long dogId, @RequestBody DogProfileImageRequest request) throws IOException {
+        log.info("강아지 프로필이미지 등록 요청");
+        DogImage dogImage = (DogImage) imageUploader.storeImage(request.getImage());
+        dogService.changeProfileImage(dogId, dogImage);
+        return ResponseEntity.ok(new ResponseDTO("강아지 프로필 이미지 등록이 완료되었습니다."));
+    }
+
+    @PutMapping("/{dogId}/profileimage")
+    public ResponseEntity<ResponseDTO> updateDogProfileImage(@PathVariable("dogId") Long dogId, @RequestBody DogProfileImageRequest request) throws IOException {
+        log.info("강아지 프로필이미지 수정 요청", dogId);
+        DogImage dogImage = (DogImage) imageUploader.storeImage(request.getImage());
+        dogService.changeProfileImage(dogId, dogImage);
+        return ResponseEntity.ok(new ResponseDTO("강아지 프로필 이미지 수정이 완료되었습니다."));
+    }
+
+    @DeleteMapping("/{dogId}/profileimage")
+    public ResponseEntity<ResponseDTO> deleteDogProfileImage(@PathVariable("dogId") Long dogId) {
+        dogService.deleteProfileImage(dogId);
+        return ResponseEntity.ok(new ResponseDTO("강아지 프로필 이미지 삭제가 완료되었습니다."));
     }
 }
