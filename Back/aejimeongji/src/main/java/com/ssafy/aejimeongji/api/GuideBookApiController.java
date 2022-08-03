@@ -39,9 +39,9 @@ public class GuideBookApiController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResponseDTO> saveGuide(@RequestBody GuideBookRequest newGuideDTO) {
+    public ResponseEntity<ResponseDTO> saveGuide(@RequestBody GuideBookRequest request) {
         log.info("가이드북 등록 요청");
-        Long savedId = guideBookService.saveGuideBook(newGuideDTO.convertGuideBook());
+        Long savedId = guideBookService.saveGuideBook(request.convertGuideBook());
         return ResponseEntity.ok(new ResponseDTO("가이드북" + savedId + " 등록이 완료되었습니다."));
     }
 }
