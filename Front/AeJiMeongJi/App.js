@@ -17,6 +17,8 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="Initial" component={Initial} />
       <Stack.Screen name="Running" component={RunningHome} />
       <Stack.Screen name="Home" component={MainHome} />
+      <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
+      <Stack.Screen name="ProfileHome2" component={ProfileHomeScreen2} />
     </Stack.Navigator>
   );
 };
@@ -52,6 +54,8 @@ import {Provider, useDispatch, useSelector} from 'react-redux';
 import {authActions} from './src/store/auth';
 import AuthStack from './src/navigation/AuthStack';
 import RunningHome from './src/screens/Running/RunningHome';
+import ProfileHomeScreen from './src/screens/Profile/ProfileHomeScreen';
+import ProfileHomeScreen2 from './src/screens/Profile/ProfileHomeScreen2';
 export default function App() {
   return (
     <Provider store={store}>

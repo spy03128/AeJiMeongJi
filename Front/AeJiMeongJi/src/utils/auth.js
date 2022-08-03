@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {useDispatch} from 'react-redux';
-import {authActions} from '../store/auth';
-import {useNavigation} from '@react-navigation/native';
+
 
 const url = 'http://i7d203.p.ssafy.io:8080';
 
@@ -17,8 +15,12 @@ export const login = async (email, password) => {
         password,
       },
     });
-    return res
-  } catch (error) {}
+    console.log(res.data.token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+    return res;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const register = async ({email, password, name, nickname, phone}) => {
@@ -36,7 +38,6 @@ export const register = async ({email, password, name, nickname, phone}) => {
         phoneNumber: phone,
       },
     });
-
   } catch (error) {
     console.log(error);
   }
@@ -53,12 +54,13 @@ export async function fetchCertHandler(phone) {
         phoneNumber: phone,
       },
     });
-    console.log(res.data.phoneUUID);
+    console.log(res, '리스폰스');
 
-    return res.data.phoneUUID
-
-  } catch (error) {}
-};
+    return res.data.phoneUUID;
+  } catch (error) {
+    console.log(error, '인증번호 요청에러');
+  }
+}
 
 export const confirmCertHandler = async (authNumber, phoneUUID) => {
   const path = '/api/phoneauth/verify';

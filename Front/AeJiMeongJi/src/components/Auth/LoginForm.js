@@ -7,6 +7,7 @@ import axios from 'axios';
 import { login } from '../../utils/auth';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -15,11 +16,11 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
-  const inputChangeHandler = (inputIdentifier, entredValue) => {
+  const inputChangeHandler = (inputIdentifier, enterdValue) => {
     setInputValues(curValue => {
       return {
         ...curValue,
-        [inputIdentifier]: entredValue,
+        [inputIdentifier]: enterdValue,
       };
     });
   };
@@ -43,7 +44,6 @@ const LoginForm = () => {
     const res = await login(inputValues.email, inputValues.password);
     console.log(res.data.accessToken, 'access token');
     await dispatch(authActions.authenticate({token: res.data.accessToken}));
-    console.log('디스패치 이후');
     navigation.navigate('Home')
   };
 
