@@ -20,7 +20,6 @@ public class DogSaveRequest {
     private Gender gender;
     private Boolean neutering;
     private Boolean gone;
-    private MultipartFile image;
     private Breed breed;
 
     public Dog convertDog(Member member, Breed breed, DogImage image){
