@@ -20,13 +20,7 @@ public class GuideBookService {
 
     // 강아지 홈 연령별 가이드 목록 조회
     public List<GuideBook> ageCustomizedGuideBookList(int targetAge) {
-        List<GuideBook> ageCustomizedGuideList = guideBookRepository.findByDogAgeEquals(targetAge);
-        List<GuideBook> fixedGuideList = guideBookRepository.findByDogAgeAndDogWeight(9999, 9999);
-
-        List<GuideBook> customizedGuideList = new ArrayList<>();
-        customizedGuideList.addAll(ageCustomizedGuideList);
-        customizedGuideList.addAll(fixedGuideList);
-        return customizedGuideList;
+        return guideBookRepository.findByDogAgeEquals(targetAge);
     }
 
     // 강아지 홈 고정 가이드 목록 조회
