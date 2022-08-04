@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -18,13 +18,24 @@ public class GuideBookService {
 
     private final GuideBookRepository guideBookRepository;
 
-    // 강아지 홈 맞춤형 가이드 목록 조회
-    public List<GuideBook> findGuideBookList() {
-        return guideBookRepository.findByDogAgeAndDogWeight(99, 99);
+    // 강아지 홈 연령별 가이드 목록 조회
+    public List<GuideBook> ageCustomizedGuideBookList(int targetAge) {
+        List<GuideBook> ageCustomizedGuideList = guideBookRepository.findByDogAgeEquals(targetAge);
+        List<GuideBook> fixedGuideList = guideBookRepository.findByDogAgeAndDogWeight(9999, 9999);
+
+        List<GuideBook> customizedGuideList = new ArrayList<>();
+        customizedGuideList.addAll(ageCustomizedGuideList);
+        customizedGuideList.addAll(fixedGuideList);
+        return customizedGuideList;
+    }
+
+    // 강아지 홈 고정 가이드 목록 조회
+    public List<GuideBook> fixedGuideBookList() {
+        return guideBookRepository.findByDogAgeAndDogWeight(9999, 9999);
     }
 
     // 카테고리별 가이드 목록 조회
-    public List<GuideBook> findGuideBookList(String category) {
+    public List<GuideBook> categorizedGuideBookList(String category) {
         return guideBookRepository.findByCategory(category);
     }
 
