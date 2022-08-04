@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createSlice} from '@reduxjs/toolkit';
-import React, {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+
 
 
 const initialState = {

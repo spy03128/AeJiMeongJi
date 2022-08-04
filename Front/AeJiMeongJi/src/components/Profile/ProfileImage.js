@@ -4,7 +4,7 @@ import {Image, Pressable, StyleSheet, View} from 'react-native';
 import UploadModeModal from './UploadModeModal';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
-const ProfileImage = ({visible}) => {
+const ProfileImage = ({visible, image, setImage}) => {
   const imagePickerOption = {
     mediaType: 'photo',
     maxWidth: 230,
@@ -13,15 +13,16 @@ const ProfileImage = ({visible}) => {
     saveToPhotos: true
   };
 
-  const [ProfileImage, setProfileImage] = useState(
-    require('../../Assets/image/Profile.png'),
-  );
+  // RNF
+  
+
   const onPickImage = res => {
     if (res.didCancel || !res) {
       return;
     }
-    console.log(res.assets[0].uri);
-    setProfileImage(res.assets[0].uri)
+    // 여기서 axios 요청
+    console.log(res);
+    setImage(res.assets[0].uri)
   };
   const imageAddBtn = require('../../Assets/image/imgAddBtn.png');
   const fileInput = useRef(null);
@@ -55,7 +56,7 @@ const ProfileImage = ({visible}) => {
       )}
       <View style={styles.ImgContainer}>
         <Avatar
-          source={ProfileImage}
+          source={{uri : image, cache: "reload"}}
           size={'xlarge'}
           activeOpacity={0.2}
           containerStyle={styles.Avatar}

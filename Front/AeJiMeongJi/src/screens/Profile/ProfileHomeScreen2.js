@@ -9,10 +9,12 @@ import {Button as Btn} from '@rneui/themed';
 import DatePick from '../../components/Profile/DatePick';
 import {useNavigation} from '@react-navigation/native';
 import Weight from '../../components/Profile/Weight';
-import {fetchDog} from '../../utils/profile';
+import {fetchDog, fetchDogImage} from '../../utils/profile';
 
 const ProfileHomeScreen2 = ({route}) => {
   const navigation = useNavigation();
+
+  console.log(route.params);
 
   const [check, setCheck] = useState(false);
   const checkHandler = () => {
@@ -21,11 +23,14 @@ const ProfileHomeScreen2 = ({route}) => {
     });
   };
 
+  
+
   const submitHandler = async () => {
     console.log(inputValues);
     const res = await fetchDog(inputValues);
     if (res) {
-      navigation.replace('Home');
+      const res2 = await fetchDogImage(res, route.params.image)
+      navigation.replace('Choice')
     }
   };
 
