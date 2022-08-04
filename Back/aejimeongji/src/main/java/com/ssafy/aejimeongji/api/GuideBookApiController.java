@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,19 +42,25 @@ public class GuideBookApiController {
     }
 
     @GetMapping("/dog/{dogId}")
-    public ResponseEntity<List<GuideBookResponse>> getCustomizedGuideBookList(@PathVariable Long dogId) {
+    public ResponseEntity<Map<String, List<GuideBookResponse>>> getCustomizedGuideBookList(@PathVariable Long dogId) {
         log.info("강아지 {} 맞춤 가이드 목록 요청", dogId);
 
         List<GuideBook> fixedGuideBookList = guideBookService.fixedGuideBookList();
-//
-//        Dog dog = dogService.findDog(dogId);
-//        int dogMonths = calculateNumberOfMonths(dog.getBirthdate());
-//        int targetAge = criterionNumberOfMonths(dogMonths);
-//        List<GuideBook> ageCustomizedGuideBookList = guideBookService.ageCustomizedGuideBookList(targetAge);
-
         List<GuideBookResponse> guideBookResponseList = fixedGuideBookList.stream()
                 .map(GuideBookResponse::toDTO).collect(Collectors.toList());
-        return ResponseEntity.ok().body(guideBookResponseList);
+
+        Dog dog = dogService.findDog(dogId);
+        int dogMonths = calculateNumberOfMonths(dog.getBirthdate());
+        int targetAge = criterionNumberOfMonths(dogMonths);
+        List<GuideBook> ageGuideBookList = guideBookService.ageCustomizedGuideBookList(targetAge);
+        List<GuideBookResponse> ageGuideBookResponseList = ageGuideBookList.stream()
+                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+
+        Map<String, List<GuideBookResponse>> list = new HashMap<>();
+        list.put("fixedGuideList", guideBookResponseList);
+        list.put("ageGuideList", ageGuideBookResponseList);
+
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("")
