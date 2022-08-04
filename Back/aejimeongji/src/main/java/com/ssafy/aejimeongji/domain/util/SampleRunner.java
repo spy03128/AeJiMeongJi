@@ -20,7 +20,7 @@
 //    @Override
 //    public void run(ApplicationArguments args) {
 //        final List<PetPlace> lists = petPlaceService
-//                .getNearPetPlaceList(37.54041, 126.9948, 0.3);
+//                .getNearPetPlaceList(37.0, 127.0, 100.0);
 //
 //        System.out.println(lists.toArray().length);
 //
