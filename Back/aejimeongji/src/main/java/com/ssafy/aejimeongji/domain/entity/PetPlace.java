@@ -30,7 +30,10 @@ public class PetPlace {
 
     private String openingHours;
 
-    public PetPlace(String name, String description, String address, String tel, String category, Point point, String openingHours) {
+    private Double distance;
+
+    public PetPlace(Long id, String name, String description, String address, String tel, String category, Point point, String openingHours, Double distance) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.address = address;
@@ -38,5 +41,6 @@ public class PetPlace {
         this.category = category;
         this.point = point;
         this.openingHours = openingHours;
+        this.distance = distance;
     }
 }

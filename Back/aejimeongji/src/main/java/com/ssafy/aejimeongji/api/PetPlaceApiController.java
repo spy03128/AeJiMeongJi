@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/petplace")
@@ -18,16 +21,15 @@ public class PetPlaceApiController {
     private final PetPlaceService petPlaceService;
 
     @GetMapping
-    public String getPetPlaceList(CoordinateRequest request) {
+    public ResponseEntity<?> getNearPetPlaceList(@RequestParam(value = "lat") Double lat,
+                                                 @RequestParam(value = "lng") Double lng) {
 
-        return "S";
-    }
+        List<PetPlace> list = petPlaceService.getNearPetPlaceList(lat, lng, 0.3);
+        List<PetPlaceResponse> result = list.stream()
+                .map(o -> new PetPlaceResponse(o, lat, lng))
+                .collect(Collectors.toList());
 
-    @GetMapping("/{petplaceId}")
-    public ResponseEntity<PetPlaceResponse> getPetPlace(@PathVariable("petplaceId") Long petplaceId) {
-
-        PetPlace petPlace = petPlaceService.findPetPlace(petplaceId);
-        return ResponseEntity.ok().body(new PetPlaceResponse(petPlace));
+        return ResponseEntity.ok().body(result);
     }
 
 

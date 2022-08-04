@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
+import static java.lang.Math.*;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -43,13 +45,13 @@ public class PetPlaceService {
         double y2 = southWest.getLongitude();
 
         String pointFormat = String.format("'LINESTRING(%f %f, %f %f)')", x1, y1, x2, y2);
-        Query query = em.createNativeQuery("SELECT r.id, r.name, r.description, "
-                        + "r.address, r.tel, r.category, r.point, r.opening_hours "
-                        + "FROM petplace AS r "
-                        + "WHERE MBRContains(ST_LINESTRINGFROMTEXT(" + pointFormat + ", r.point)", PetPlace.class)
-                .setMaxResults(10);
+        Query query = em.createNativeQuery("SELECT p.id, p.name, p.description, "
+                        + "p.address, p.tel, p.category, p.point, p.opening_hours, p.distance "
+                        + "FROM petplace AS p "
+                        + "WHERE MBRContains(ST_LINESTRINGFROMTEXT(" + pointFormat + ", p.point)", PetPlace.class);
 
         List<PetPlace> list = query.getResultList();
+
         return list;
     }
 
