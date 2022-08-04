@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -17,10 +18,42 @@ import java.util.List;
 public class GuideBookService {
 
     private final GuideBookRepository guideBookRepository;
+    private final Random random = new Random();
+
+    public List<GuideBook> randomSelect(List<GuideBook> beforeList) {
+        int[] randIndexes = new int[5];
+        for (int i = 0; i < 5; i++) {
+            randIndexes[i] = random.nextInt(beforeList.size() - 1);
+            for (int j = 0; j < i; j++) {
+                if (randIndexes[i] == randIndexes[j]) {
+                    i--;
+                    break;
+                }
+            }
+        }
+        List<GuideBook> afterList = new ArrayList<>();
+        for (int idx : randIndexes) {
+            afterList.add(beforeList.get(idx));
+        }
+        return afterList;
+    }
 
     // 강아지 홈 연령별 가이드 목록 조회
     public List<GuideBook> ageCustomizedGuideBookList(int targetAge) {
-        return guideBookRepository.findByDogAgeEquals(targetAge);
+        List<GuideBook> guideList = guideBookRepository.findByDogAgeEquals(targetAge);
+        if (guideList.size() <= 5)
+            return guideList;
+        else
+            return randomSelect(guideList);
+    }
+
+    // 강아지 홈 무게별 가이드 목록 조회
+    public List<GuideBook> weightCustomizedGuideBookList(int targetWeight) {
+        List<GuideBook> guideList = guideBookRepository.findByDogWeightEquals(targetWeight);
+        if (guideList.size() <= 5)
+            return guideList;
+        else
+            return randomSelect(guideList);
     }
 
     // 강아지 홈 고정 가이드 목록 조회
