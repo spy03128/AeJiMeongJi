@@ -18,9 +18,9 @@ public class GuideBookService {
 
     private final GuideBookRepository guideBookRepository;
 
-    // 강아지 맞춤형 가이드 목록 조회 - 전체 목록 조회 로직까지 구현됨
+    // 강아지 홈 맞춤형 가이드 목록 조회
     public List<GuideBook> findGuideBookList() {
-        return guideBookRepository.findAll();
+        return guideBookRepository.findByDogAgeAndDogWeight(99, 99);
     }
 
     // 카테고리별 가이드 목록 조회

@@ -9,4 +9,6 @@ public interface GuideBookRepository extends JpaRepository<GuideBook, Long> {
 
     List<GuideBook> findByCategory(String category);
 
+    List<GuideBook> findByDogAgeAndDogWeight(int dogAge, int dogWeight);
+
 }
