@@ -45,7 +45,7 @@ class AnimatedMarkers extends React.Component {
   componentDidMount() {
     const {coordinate} = this.state;
 
-    this.watchID = Geolocation.getCurrentPosition(
+    this.watchID = Geolocation.watchPosition(
       position => {
         const {routeCoordinates, distanceTravelled} = this.state;
         const {latitude, longitude} = position.coords;
@@ -55,9 +55,7 @@ class AnimatedMarkers extends React.Component {
           longitude,
         };
 
-        {
-          coordinate.timing(newCoordinate).start();
-        }
+        coordinate.timing(newCoordinate).start();
 
         this.setState({
           latitude,
