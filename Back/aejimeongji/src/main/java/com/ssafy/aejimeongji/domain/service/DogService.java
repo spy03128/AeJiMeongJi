@@ -67,7 +67,6 @@ public class DogService {
     public Long changeProfileImage(Long dogId, DogImage image) {
         Dog dog = findDog(dogId);
         dog.changeDogProfileImage(image);
-        return image.getId();
     }
 
     @Transactional
