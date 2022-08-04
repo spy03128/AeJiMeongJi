@@ -13,6 +13,6 @@ public interface DogRepository extends JpaRepository<Dog, Long> {
     List<Dog> findDogsByMemberId(Long memberId);
 
     @Override
-    @Query("select d from Dog d join fetch d.breed b where d.id = :dogId")
+    @Query("select d from Dog d join fetch d.breed b join fetch d.image i where d.id = :dogId")
     Optional<Dog> findById(@Param("dogId") Long dogId);
 }
