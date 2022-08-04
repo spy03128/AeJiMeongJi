@@ -1,94 +1,62 @@
-import React, {useState, useEffect} from 'react';
-import {Image, StyleSheet, View, Text} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-// import styled from 'styled-components';
-import {Platform, PermissionsAndroid} from 'react-native';
+import React, {Component} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {Provider, Appbar, Card} from 'react-native-paper';
+import MapView, {Marker, Polyline} from 'react-native-maps';
+const MyWebtutsComponent = () => {
+  const [latitude, setLatitude] = React.useState();
+  const [longitude, setLongitude] = React.useState();
 
-async function requestPermission() {
-  try {
-    if (Platform.OS === 'ios') {
-      return await Geolocation.requestAuthorization('always');
-    }
-    // 안드로이드 위치 정보 수집 권한 요청
-    if (Platform.OS === 'android') {
-      return await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
+  React.useEffect(() => {}, [latitude, longitude]);
 
-function App() {
-  const [location, setLocation] = useState();
-  useEffect(() => {
-    requestPermission().then(result => {
-      console.log({result});
-      if (result === 'granted') {
-        Geolocation.getCurrentPosition(
-          pos => {
-            setLocation(pos.coords);
-          },
-          error => {
-            console.log(error);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 3600,
-            maximumAge: 3600,
-          },
-        );
-      }
-    });
-  }, []);
-
-  if (!location) {
-    return (
-      <View style={{flex: 1}}>
-        <Text style={{flex: 1}}>Splash Screen</Text>
-      </View>
-    );
-  }
-
+  const [coordinates] = React.useState([
+    {
+      latitude: 22.306885,
+      longitude: 70.780538,
+    },
+    {
+      latitude: 22.310696,
+      longitude: 70.803152,
+    },
+    {
+      latitude: 22.293067,
+      longitude: 70.791559,
+    },
+    {
+      latitude: 22.306885,
+      longitude: 70.780538,
+    },
+  ]);
   return (
-    <>
-      <View style={{flex: 1}}>
+    <Provider>
+      <View style={styles.mainbox}>
         <MapView
-          style={{flex: 1}}
-          provider={PROVIDER_GOOGLE}
+          style={styles.mapView}
           initialRegion={{
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
+            latitude: 22.310617,
+            longitude: 70.789841,
+            latitudeDelta: 0.0322,
+            longitudeDelta: 0.0321,
           }}>
-          <Marker
-            coordinate={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            }}
-            title="this is a marker"
-            description="this is a marker example"
+          <Polyline
+            coordinates={coordinates}
+            strokeColor="#000"
+            strokeColors={['#7F0000']}
+            strokeWidth={2}
           />
         </MapView>
       </View>
-    </>
+    </Provider>
   );
-}
-// const styels = StyleSheet.create({
-
-// const View = styled.View`
-//   flex: 1;
-// `;
-
-// const Text = styled.Text`
-//   flex: 1;
-// `;
-
-// const Map = styled(MapView)`
-//   flex: 1;
-// `;
-
-export default App;
+};
+const styles = StyleSheet.create({
+  mainbox: {
+    textAlign: 'center',
+    margin: 0,
+    flex: 5,
+    justifyContent: 'space-between',
+  },
+  mapView: {
+    flex: 25,
+  },
+});
+export default MyWebtutsComponent;
