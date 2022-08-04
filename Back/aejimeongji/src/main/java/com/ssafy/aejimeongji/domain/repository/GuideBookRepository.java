@@ -16,4 +16,7 @@ public interface GuideBookRepository extends JpaRepository<GuideBook, Long> {
     @Query("select gb from GuideBook gb where gb.dogAge = :targetAge and gb.dogWeight < 9999 ")
     List<GuideBook> findByDogAgeEquals(@Param("targetAge") int targetAge);
 
+    @Query("select gb from GuideBook gb where gb.dogWeight = :targetWeight and gb.dogAge < 9999 ")
+    List<GuideBook> findByDogWeightEquals(@Param("targetWeight") int targetWeight);
+
 }
