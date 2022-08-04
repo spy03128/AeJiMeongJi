@@ -41,6 +41,14 @@ public class GuideBookApiController {
         return 9999;
     }
 
+    public int criterionWeight(double dogWeight) {
+        int[] criteria = {5, 10, 25};
+        for(int c : criteria){
+            if (dogWeight <= c) return c;
+        }
+        return 9999;
+    }
+
     @GetMapping("/dog/{dogId}")
     public ResponseEntity<Map<String, List<GuideBookResponse>>> getCustomizedGuideBookList(@PathVariable Long dogId) {
         log.info("강아지 {} 맞춤 가이드 목록 요청", dogId);
@@ -56,9 +64,16 @@ public class GuideBookApiController {
         List<GuideBookResponse> ageGuideBookResponseList = ageGuideBookList.stream()
                 .map(GuideBookResponse::toDTO).collect(Collectors.toList());
 
+        double dogWeight = dog.getWeight();
+        int targetWeight = criterionWeight(dogWeight);
+        List<GuideBook> weightGuideBookList = guideBookService.weightCustomizedGuideBookList(targetWeight);
+        List<GuideBookResponse> weightGuideBookResponseList = weightGuideBookList.stream()
+                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+
         Map<String, List<GuideBookResponse>> list = new HashMap<>();
         list.put("fixedGuideList", guideBookResponseList);
         list.put("ageGuideList", ageGuideBookResponseList);
+        list.put("weightGuideList", weightGuideBookResponseList);
 
         return ResponseEntity.ok().body(list);
     }
