@@ -12,7 +12,7 @@ const GuideHome = ({navigation}) => {
   const fetchGuide = async children => {
     const res = await fetchGuideList(children);
 
-    navigation.navigate('GuideCategory');
+    navigation.navigate('GuideCategory', {information: title});
   };
 
   return (
