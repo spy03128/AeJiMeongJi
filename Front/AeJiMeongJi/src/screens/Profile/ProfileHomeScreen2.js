@@ -9,12 +9,10 @@ import {Button as Btn} from '@rneui/themed';
 import DatePick from '../../components/Profile/DatePick';
 import {useNavigation} from '@react-navigation/native';
 import Weight from '../../components/Profile/Weight';
-import {fetchDog, fetchDogImage} from '../../utils/profile';
+import {fetchDog} from '../../utils/profile';
 
 const ProfileHomeScreen2 = ({route}) => {
   const navigation = useNavigation();
-
-  console.log(route.params);
 
   const [check, setCheck] = useState(false);
   const checkHandler = () => {
@@ -26,13 +24,9 @@ const ProfileHomeScreen2 = ({route}) => {
   const submitHandler = async () => {
     console.log(inputValues);
     const res = await fetchDog(inputValues);
-    console.log(res);
-    // if (res) {
-    //   const res2 = await fetchDogImage(res, route.params.image);
-    //   if (res2) {
-    //     navigation.replace('Choice');
-    //   }
-    // }
+    if (res) {
+      navigation.replace('Home');
+    }
   };
 
   const [inputValues, setInputValues] = useState({
@@ -44,7 +38,6 @@ const ProfileHomeScreen2 = ({route}) => {
     weight: '',
     neutering: check,
     gone: false,
-    image: route.params.image
   });
 
   const inputChangeHandler = (inputIdentifier, enterdValue) => {

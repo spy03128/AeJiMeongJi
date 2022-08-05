@@ -18,23 +18,16 @@ const ProfileHomeScreen = () => {
     {label: '암컷', value: 'Female'},
   ]);
 
-
-  const [image, setImage] = useState(require('../../Assets/image/Profile.png'));
-
-
   const [visible, setVisible] = useState(null);
 
   const closeModalHandler = () => {
     setVisible(false);
   };
 
+  
+
   const goNextPage = () => {
-    navigation.navigate('ProfileHome2', {
-      name,
-      gender: value,
-      breed,
-      image,
-    });
+    navigation.navigate('ProfileHome2', {name: name, gender: value, breed: breed });
   };
 
   const inputChangeHandler = entredValue => {
@@ -47,7 +40,7 @@ const ProfileHomeScreen = () => {
 
   return (
     <Pressable style={styles.rootContainer} onPress={closeModalHandler}>
-      <ProfileImage image={String(image)} setImage={setImage} />
+      <ProfileImage />
       <View style={styles.inputContainer}>
         <View>
           <ProfileInput
@@ -76,8 +69,8 @@ const ProfileHomeScreen = () => {
             style={styles.input}
             containerStyle={styles.containerStyle}
           />
-          <SearchBreed setBreed={setBreed} />
-        </View>
+          <SearchBreed setBreed={setBreed}  />
+            </View>
       </View>
       <View style={styles.buttonContainer}>
         <Button style={styles.button} onPress={goNextPage}>
@@ -116,11 +109,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   containerStyle: {
     flex: 1,
     marginRight: 3,
+
   },
   input: {
     // maxWidth: '70%',
