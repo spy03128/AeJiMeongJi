@@ -44,6 +44,17 @@ public class ImageUtil {
         return new Image(originalFilename, storeFilename);
     }
 
+    public void deleteStoreImage(String storeFilename) {
+        File file = new File(fileDir + storeFilename);
+
+        if (file.exists()) {
+            file.delete();
+            log.info("{} 이미지를 삭제하였습니다.", storeFilename);
+        } else {
+            log.info("{} 이미지가 존재하지 않습니다.", storeFilename);
+        }
+    }
+
     private String createStoreFilename(String originalFilename) {
         return UUID.randomUUID().toString() + "." + extractExt(originalFilename);
     }
