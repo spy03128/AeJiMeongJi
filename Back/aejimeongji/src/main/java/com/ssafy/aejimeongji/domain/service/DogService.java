@@ -5,6 +5,7 @@ import com.ssafy.aejimeongji.domain.entity.Dog;
 import com.ssafy.aejimeongji.domain.entity.DogImage;
 import com.ssafy.aejimeongji.domain.repository.BreedRepository;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
+import com.ssafy.aejimeongji.domain.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 public class DogService {
 
     private final DogRepository dogRepository;
+    private final ImageUtil imageUtil;
 
     // 강아지 프로필 목록 조회
     public List<Dog> findDogList(Long memberId) {
@@ -34,7 +36,6 @@ public class DogService {
     public Dog findDog(Long dogId) {
         Dog dog = dogRepository.findById(dogId)
                 .orElseThrow(() -> new IllegalArgumentException("조회하신 강아지가 존재하지 않습니다."));
-        dog.getBreed().getBreedName();
         return dog;
     }
 
@@ -64,15 +65,18 @@ public class DogService {
     }
 
     @Transactional
-    public Long changeProfileImage(Long dogId, DogImage image) {
+    public void changeProfileImage(Long dogId, DogImage image) {
         Dog dog = findDog(dogId);
+        if (dog.getImage() != null)
+           imageUtil.deleteStoreImage(dog.getImage().getStoreFilename());
         dog.changeDogProfileImage(image);
-        return image.getId();
     }
 
     @Transactional
-    public void deleteProfileImage(Long dogId) {
+    public String deleteProfileImage(Long dogId) {
         Dog dog = findDog(dogId);
+        String storeFilename = dog.getImage().getStoreFilename();
         dog.changeDogProfileImage(null);
+        return storeFilename;
     }
 }
