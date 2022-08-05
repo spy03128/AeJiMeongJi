@@ -34,8 +34,7 @@ public class PetPlace {
 
     private Double distance;
 
-    public PetPlace(Long id, String name, String description, String address, String tel, String category, Point point, String openingHours, Double distance) {
-        this.id = id;
+    public PetPlace(String name, String description, String address, String tel, String category, Point point, String openingHours, Double distance) {
         this.name = name;
         this.description = description;
         this.address = address;
