@@ -57,16 +57,11 @@ public class PetPlaceService {
     }
 
     public List<PetPlace> findPetPlaceList() {
-
         return petPlaceRepostiory.findAll();
     }
 
     public PetPlace findPetPlace(Long petplaceId) {
-
-        PetPlace petPlace = petPlaceRepostiory.findById(petplaceId).orElseThrow(() -> {
-            return new IllegalArgumentException("해당 " + petplaceId + " 는 없습니다.");
-        });
-
-        return petPlace;
+        return petPlaceRepostiory.findById(petplaceId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 " + petplaceId + " 는 존재하지 않습니다."));
     }
 }

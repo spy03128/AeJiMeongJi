@@ -35,4 +35,14 @@ public class PetPlaceResponse {
         distance = (6371 * acos(cos(toRadians(lat)) * cos(toRadians(x)) * cos(toRadians(y) - toRadians(lng)) + sin(toRadians(lat)) * sin(toRadians(x))));
 
     }
+
+    public PetPlaceResponse(PetPlace petPlace) {
+        this.id = petPlace.getId();
+        this.name = petPlace.getName();
+        this.description = petPlace.getDescription();
+        this.address = petPlace.getAddress();
+        this.tel = petPlace.getTel();
+        this.category = petPlace.getCategory();
+        this.openingHours = petPlace.getOpeningHours();
+    }
 }
