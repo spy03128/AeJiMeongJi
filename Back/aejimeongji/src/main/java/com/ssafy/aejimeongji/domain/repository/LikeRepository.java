@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<Like, Long> {
 
-     @Query("select l from Like l join fetch l.member m where m.id = :memberId")
-     List<Like> findLikesByMemberId(@Param("memberId") Long memberId);
+    @Query("select l from Like l join fetch l.member m join fetch l.guideBook g where m.id = :memberId")
+    List<Like> findLikesByMemberId(@Param("memberId") Long memberId);
 
     Optional<Like> findByMemberIdAndGuideBookId(Long memberId, Long guideId);
 

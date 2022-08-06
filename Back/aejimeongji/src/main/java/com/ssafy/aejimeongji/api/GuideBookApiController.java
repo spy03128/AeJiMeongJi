@@ -87,14 +87,14 @@ public class GuideBookApiController {
         return ResponseEntity.ok().body(guideBookResponseList);
     }
 
-//    @GetMapping(params = "member")
-//    public ResponseEntity<List<GuideBookResponse>> getCategorizedGuideBookList(@RequestParam(value = "member") Long memberId) {
-//        log.info("사용자 {} 좋아요 가이드 목록 요청", memberId);
-//        List<GuideBook> guideBookList = guideBookService.categorizedGuideBookList(categoryName);
-//        List<GuideBookResponse> guideBookResponseList = guideBookList.stream()
-//                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
-//        return ResponseEntity.ok().body(guideBookResponseList);
-//    }
+    @GetMapping(params = "member")
+    public ResponseEntity<List<GuideBookResponse>> getLikedGuideBookList(@RequestParam(value = "member") Long memberId) {
+        log.info("사용자 {} 좋아요 가이드 목록 요청", memberId);
+        List<GuideBook> guideBookList = guideBookService.likedGuideBookList(memberId);
+        List<GuideBookResponse> guideBookResponseList = guideBookList.stream()
+                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+        return ResponseEntity.ok().body(guideBookResponseList);
+    }
 
     @GetMapping("/{guideId}")
     public ResponseEntity<GuideBookResponse> getGuideBook(@PathVariable Long guideId) {

@@ -1,7 +1,9 @@
 package com.ssafy.aejimeongji.domain.service;
 
 import com.ssafy.aejimeongji.domain.entity.GuideBook;
+import com.ssafy.aejimeongji.domain.entity.Like;
 import com.ssafy.aejimeongji.domain.repository.GuideBookRepository;
+import com.ssafy.aejimeongji.domain.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -18,6 +21,7 @@ import java.util.Random;
 public class GuideBookService {
 
     private final GuideBookRepository guideBookRepository;
+    private final LikeRepository likeRepository;
     private final Random random = new Random();
 
     public List<GuideBook> randomSelect(List<GuideBook> beforeList) {
@@ -64,6 +68,14 @@ public class GuideBookService {
     // 카테고리별 가이드 목록 조회
     public List<GuideBook> categorizedGuideBookList(String category) {
         return guideBookRepository.findByCategory(category);
+    }
+
+    // 멤버별 좋아요 가이드 목록 조회
+    public List<GuideBook> likedGuideBookList(Long memberId) {
+        List<Like> likeList = likeRepository.findLikesByMemberId(memberId);
+        List<GuideBook> likedGuideList = likeList.stream()
+                .map(Like::getGuideBook).collect(Collectors.toList());
+        return likedGuideList;
     }
 
     // 가이드 상세 조회
