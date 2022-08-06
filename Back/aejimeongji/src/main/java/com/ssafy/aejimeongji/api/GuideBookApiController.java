@@ -49,7 +49,7 @@ public class GuideBookApiController {
         return 9999;
     }
 
-    @GetMapping(path = "", params = "dog")
+    @GetMapping(params = "dog")
     public ResponseEntity<Map<String, List<GuideBookResponse>>> getCustomizedGuideBookList(@RequestParam(value = "dog") Long dogId) {
         log.info("강아지 {} 맞춤 가이드 목록 요청", dogId);
 
@@ -78,7 +78,7 @@ public class GuideBookApiController {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(path = "", params = "category")
+    @GetMapping(params = "category")
     public ResponseEntity<List<GuideBookResponse>> getCategorizedGuideBookList(@RequestParam(value = "category") String categoryName) {
         log.info("'{}' 카테고리 가이드 목록 요청", categoryName);
         List<GuideBook> guideBookList = guideBookService.categorizedGuideBookList(categoryName);
@@ -87,6 +87,15 @@ public class GuideBookApiController {
         return ResponseEntity.ok().body(guideBookResponseList);
     }
 
+//    @GetMapping(params = "member")
+//    public ResponseEntity<List<GuideBookResponse>> getCategorizedGuideBookList(@RequestParam(value = "member") Long memberId) {
+//        log.info("사용자 {} 좋아요 가이드 목록 요청", memberId);
+//        List<GuideBook> guideBookList = guideBookService.categorizedGuideBookList(categoryName);
+//        List<GuideBookResponse> guideBookResponseList = guideBookList.stream()
+//                .map(GuideBookResponse::toDTO).collect(Collectors.toList());
+//        return ResponseEntity.ok().body(guideBookResponseList);
+//    }
+
     @GetMapping("/{guideId}")
     public ResponseEntity<GuideBookResponse> getGuideBook(@PathVariable Long guideId) {
         log.info("가이드북 {}번 상세 정보 요청", guideId);
@@ -94,7 +103,7 @@ public class GuideBookApiController {
         return ResponseEntity.ok().body(new GuideBookResponse(guideBook));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ResponseDTO> saveGuideBook(@RequestBody GuideBookRequest request) {
         log.info("가이드북 등록 요청");
         Long savedId = guideBookService.saveGuideBook(request.convertGuideBook());
