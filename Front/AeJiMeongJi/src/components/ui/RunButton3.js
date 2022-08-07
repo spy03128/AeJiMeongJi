@@ -2,16 +2,11 @@ import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../../constants/styles';
 
-function GuideButton({children, onPress}) {
-  const fetchGuide = () => {
-    console.log('fetchGuide');
-    onPress(children);
-  };
-
+function RunButton({children, onPress}) {
   return (
     <Pressable
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
-      onPress={fetchGuide}>
+      onPress={onPress}>
       <View>
         <Text style={styles.buttonText}>{children}</Text>
       </View>
@@ -19,28 +14,29 @@ function GuideButton({children, onPress}) {
   );
 }
 
-export default GuideButton;
+export default RunButton;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 20,
-    paddingVertical: 14,
-    paddingHorizontal: 50,
-    backgroundColor: '#E6E6E6',
+    borderRadius: 25,
+    paddingVertical: 11,
+    paddingHorizontal: 28,
+    backgroundColor: Colors.btnBack100,
     elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    marginHorizontal: 8,
-    marginBottom: 10,
+    marginLeft: 70,
+    marginRight: 70,
+    marginTop: 20,
   },
   pressed: {
     opacity: 0.7,
   },
   buttonText: {
     textAlign: 'center',
-    color: '#6E6E6E',
+    color: Colors.btnText,
     fontSize: 18,
     fontWeight: 'bold',
   },
