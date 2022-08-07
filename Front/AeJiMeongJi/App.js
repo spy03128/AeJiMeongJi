@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 
 const AuthenticatedStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Initial" component={Initial} />
       {/* <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
       <Stack.Screen name="RunningHome" component={RunningHome} />
@@ -35,7 +35,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="Guide" component={GuideHome} />
       <Stack.Screen name="GuideCategory" component={GuideCategory} />
       <Stack.Screen name="GuideDetail" component={GuideDetail} />
-      <Stack.Screen name="Calendar" component={CalendarHome} />
+      <Stack.Screen name="CalendarHome" component={CalendarHome} />
       <Stack.Screen name="TodoUpload" component={TodoUpload} />
     </Stack.Navigator>
   );
