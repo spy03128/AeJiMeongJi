@@ -1,7 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+// import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import {Alert} from 'react-native';
+import axios from './index'
+
+// import axios from './index'
 
 const url = 'http://i7d203.p.ssafy.io:8080';
 
@@ -17,7 +20,8 @@ export const login = async (email, password) => {
         password,
       },
     });
-    console.log(res.data.accessToken, '토큰');
+    console.log(res);
+
     axios.defaults.headers.common[
       'Authorization'
     ] = `Bearer ${res.data.accessToken}`;
@@ -62,7 +66,7 @@ export async function fetchCertHandler(phone) {
 
     return res.data.phoneUUID;
   } catch (error) {
-    console.log(error, '인증번호 요청에러');
+    console.log(error.response, '인증번호 요청에러');
   }
 }
 
@@ -108,9 +112,10 @@ export const removeMember = async () => {
   }
 };
 
-export const refresh = async refreshToken => {
+
+export const refresh = async (refreshToken) => {
   const path = '/api/auth/issue';
-  console.log(typeof refreshToken, 'axios refresh');
+  console.log('refreshtoken axios 요청 진입');
   try {
     const res = await axios({
       method: 'post',
@@ -126,6 +131,6 @@ export const refresh = async refreshToken => {
     console.log(res.data, '토큰 refresh');
     return res.data;
   } catch (error) {
-    console.log(error.response);
+    console.log(error.response, 'issue');
   }
 };
