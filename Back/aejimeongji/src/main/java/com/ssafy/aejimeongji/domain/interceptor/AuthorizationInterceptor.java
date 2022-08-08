@@ -15,7 +15,6 @@ import java.util.Map;
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
     private final TokenProvider tokenProvider;
-    private final Map<String, String> result = new HashMap<>();
 
     public AuthorizationInterceptor(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
