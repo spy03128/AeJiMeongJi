@@ -39,7 +39,6 @@ public class  TokenProvider {
 
     public String createRefreshToken(Member member) {
         Claims claims = Jwts.claims().setSubject(member.getId().toString());
-        claims.put("memberId", member.getId());
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims)
