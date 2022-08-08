@@ -1,6 +1,6 @@
 package com.ssafy.aejimeongji.config;
 
-import com.ssafy.aejimeongji.security.LoginInterceptor;
+import com.ssafy.aejimeongji.domain.interceptor.LoginInterceptor;
 import com.ssafy.aejimeongji.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

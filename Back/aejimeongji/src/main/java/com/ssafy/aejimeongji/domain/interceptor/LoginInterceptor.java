@@ -1,6 +1,7 @@
-package com.ssafy.aejimeongji.security;
+package com.ssafy.aejimeongji.domain.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.aejimeongji.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
