@@ -1,5 +1,6 @@
 package com.ssafy.aejimeongji.config;
 
+import com.ssafy.aejimeongji.domain.interceptor.AuthorizationInterceptor;
 import com.ssafy.aejimeongji.domain.interceptor.LoginInterceptor;
 import com.ssafy.aejimeongji.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/auth/**", "/api/phoneauth/**", "/api/signup", "/api/breed", "/api/image/**");
+
+        registry.addInterceptor(new AuthorizationInterceptor(tokenProvider))
+                .order(2)
+                .addPathPatterns("/api/admin/**");
     }
 }
