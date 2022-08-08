@@ -115,7 +115,7 @@ export const refresh = async refreshToken => {
     const res = await axios({
       method: 'post',
       url: url + path,
-      data: refreshToken,
+      data: `Bearer ${refreshToken}`,
     });
 
     return res.data
