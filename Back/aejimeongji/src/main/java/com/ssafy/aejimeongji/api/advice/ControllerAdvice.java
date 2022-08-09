@@ -1,6 +1,7 @@
 package com.ssafy.aejimeongji.api.advice;
 
 import com.ssafy.aejimeongji.api.dto.ErrorDTO;
+import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
 import com.ssafy.aejimeongji.domain.exception.auth.ExpireAuthNumberException;
 import com.ssafy.aejimeongji.domain.exception.MemberNotFoundException;
 import com.ssafy.aejimeongji.domain.exception.auth.RefreshTokenNotFoundException;
@@ -23,6 +24,12 @@ public class ControllerAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorDTO> memberNotFoundExHandler(IllegalArgumentException ex) {
         log.error("메시지 = {}", ex.getMessage());
+        return ResponseEntity.badRequest().body(new ErrorDTO(400, ex.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorDTO> memberNotFoundExHandler(DogNotFoundException ex) {
+        log.error("{}번 강아지 프로필 조회 중 오류 발생, ex : {}", ex.getMessage(), ex.getClass().getName());
         return ResponseEntity.badRequest().body(new ErrorDTO(400, ex.getMessage()));
     }
 }
