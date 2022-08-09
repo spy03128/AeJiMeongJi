@@ -1,0 +1,71 @@
+{
+	'status': 'OK',
+	'meta': {'totalCount': 1, 'page': 1, 'count': 1},
+	'addresses': [
+			{
+				'roadAddress': '경기도 안양시 동안구 흥안대로 446',
+				'jibunAddress': '경기도 안양시 동안구 평촌동 93-6',
+				'englishAddress': '446, Heungan-daero, Dongan-gu, Anyang-si, Gyeonggi-do, Republic of Korea',
+				'addressElements': [
+							{
+								'types': ['SIDO'],
+								'longName': '경기도',
+								'shortName': '경기도',
+								'code': ''
+							},
+							{
+								'types': ['SIGUGUN'],
+								'longName': '안양시 동안구',
+								'shortName': '안양시 동안구',
+								'code': ''
+							},
+							{
+								'types': ['DONGMYUN'],
+								'longName': '평촌동',
+								'shortName': '평촌동',
+								'code': ''
+							},
+							{
+								'types': ['RI'],
+								'longName': '',
+								'shortName': '',
+								'code': ''
+							},
+							{
+								'types': ['ROAD_NAME'],
+								'longName': '흥안대로',
+								'shortName': '흥안대로',
+								'code': ''
+							},
+							{
+								'types': ['BUILDING_NUMBER'],
+								'longName': '446',
+								'shortName': '446',
+								'code': ''
+							},
+							{
+								'types': ['BUILDING_NAME'],
+								'longName': '',
+								'shortName': '',
+								'code': ''
+							},
+							{
+								'types': ['LAND_NUMBER'],
+								'longName': '93-6',
+								'shortName': '93-6',
+								'code': ''
+							},
+							{
+								'types': ['POSTAL_CODE'],
+								'longName': '14062',
+								'shortName': '14062',
+								'code': ''
+							}
+						],
+				'x': '126.9755062',
+				'y': '37.3938117',
+				'distance': 0.0
+			}
+		],
+	'errorMessage': ''
+}
