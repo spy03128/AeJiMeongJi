@@ -49,7 +49,7 @@ const MainHome = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.rootContainer}>
-        <Navbar />
+        <Navbar imageName={dogInfo.imageName} />
         <View style={styles.contentbox}>
           <Profile dogInfo={dogInfo} />
 
