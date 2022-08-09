@@ -12,9 +12,6 @@ import {Colors} from '../../constants/styles';
 
 const navbar = props => {
   const navigation = useNavigation();
-  console.log('네브');
-  console.log(props.imageName);
-  console.log(`http://i7d203.p.ssafy.io:8080/api/image/${props.imageName}`);
 
   return (
     <View style={styles.nav}>
