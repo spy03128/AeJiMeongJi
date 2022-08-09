@@ -103,8 +103,8 @@ public class GuideBookService {
 
     // 가이드 삭제
     @Transactional
-    public void deleteGuideBook(Long guidId) {
-        GuideBook findGuide = findGuideBook(guidId);
+    public void deleteGuideBook(Long guideId) {
+        GuideBook findGuide = findGuideBook(guideId);
         imageUtil.deleteStoreImage(findGuide.getThumbnail().getStoreFilename());
         guideBookRepository.delete(findGuide);
     }
