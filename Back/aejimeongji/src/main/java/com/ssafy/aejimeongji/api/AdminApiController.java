@@ -2,10 +2,7 @@ package com.ssafy.aejimeongji.api;
 
 import com.ssafy.aejimeongji.api.dto.ResponseDTO;
 import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookRequest;
-import com.ssafy.aejimeongji.domain.entity.image.GuideThumbnail;
-import com.ssafy.aejimeongji.domain.entity.image.Image;
 import com.ssafy.aejimeongji.domain.service.GuideBookService;
-import com.ssafy.aejimeongji.domain.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +17,18 @@ import java.io.IOException;
 public class AdminApiController {
 
     private final GuideBookService guideBookService;
-    private final ImageUtil imageUtil;
 
-    @PostMapping("/guide")
+    @PostMapping(value = "/guide")
     public ResponseEntity<ResponseDTO> saveGuideBook(@ModelAttribute GuideBookRequest request) throws IOException {
         log.info("가이드북 등록 요청");
-        Image image = imageUtil.storeImage(request.getThumbnail());
-        guideBookService.saveGuideBook(request.convertGuideBook(image));
+        guideBookService.saveGuideBook(request.convertGuideBook(), request.getThumbnail());
         return ResponseEntity.ok(new ResponseDTO("가이드북 등록이 완료되었습니다."));
     }
 
     @PutMapping("/guide/{guideId}")
     public ResponseEntity<ResponseDTO> updateGuideBook(@PathVariable Long guideId, @ModelAttribute GuideBookRequest request) throws IOException {
         log.info("가이드북 {} 수정 요청", guideId);
-        Image image = imageUtil.storeImage(request.getThumbnail());
-        Long updatedId = guideBookService.updateGuideBook(guideId, request.getTitle(), request.getContent(), request.getCategory(), request.getDogAge(), request.getDogWeight(), new GuideThumbnail(image));
+        Long updatedId = guideBookService.updateGuideBook(guideId, request.convertGuideBook(), request.getThumbnail());
         return ResponseEntity.ok(new ResponseDTO("가이드북 " + updatedId + " 수정이 완료되었습니다."));
     }
 
