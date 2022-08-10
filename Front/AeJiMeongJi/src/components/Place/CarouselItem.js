@@ -59,10 +59,10 @@ const renderItem = ({item, index}, parallaxProps) => {
   );
 };
 
-const CarouselItem = () => {
+const CarouselItem = ({category}) => {
   const navigation = useNavigation();
   const goToplaceList = () => {
-    // navigation.navigate('placeList')
+    // navigation.navigate('placeList', category)
     console.log('전체보기 클릭');
   };
 

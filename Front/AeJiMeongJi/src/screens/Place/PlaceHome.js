@@ -120,6 +120,10 @@ const PlaceHome = () => {
         <View>
           <DogInfo source={source} dogInfo={dogInfo} />
         </View>
+        {/* <CarouselItem
+        category={data.category 형식으로}
+        */}
+
         <View>
           <CarouselItem />
         </View>
