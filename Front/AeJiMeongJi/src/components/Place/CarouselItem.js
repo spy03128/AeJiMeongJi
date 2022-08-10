@@ -61,9 +61,8 @@ const renderItem = ({item, index}, parallaxProps) => {
 
 const CarouselItem = ({category}) => {
   const navigation = useNavigation();
-  const goToplaceList = () => {
-    // navigation.navigate('placeList', category)
-    console.log('전체보기 클릭');
+  const goToCategory = () => {
+    navigation.navigate('PlaceCategory', category)
   };
 
   return (
@@ -72,7 +71,7 @@ const CarouselItem = ({category}) => {
         <View style={styles.categoryText}>
           <Text style={styles.CartegoryTitle}>반려견과 함께 방문할 맛집</Text>
         </View>
-        <Pressable style={styles.detail} onPress={goToplaceList}>
+        <Pressable style={styles.detail} onPress={goToCategory}>
           <Text style={styles.detailText}>전체보기</Text>
         </Pressable>
       </View>
