@@ -6,6 +6,7 @@ import com.ssafy.aejimeongji.domain.entity.GuideBook;
 import com.ssafy.aejimeongji.domain.entity.Like;
 import com.ssafy.aejimeongji.domain.entity.image.GuideThumbnail;
 import com.ssafy.aejimeongji.domain.exception.DogNotFoundException;
+import com.ssafy.aejimeongji.domain.exception.GuideNotFoundException;
 import com.ssafy.aejimeongji.domain.repository.CategoryRepository;
 import com.ssafy.aejimeongji.domain.repository.DogRepository;
 import com.ssafy.aejimeongji.domain.repository.GuideBookRepository;
@@ -65,7 +66,7 @@ public class GuideBookService {
 
     // 가이드 상세 조회
     public GuideBook findGuideBook(Long guideBookId) {
-        return guideBookRepository.findById(guideBookId).orElseThrow(() -> new IllegalArgumentException("조회하신 가이드가 존재하지 않습니다."));
+        return guideBookRepository.findById(guideBookId).orElseThrow(() -> new GuideNotFoundException(guideBookId.toString()));
     }
 
     // 강아지 홈 고정 가이드 목록 조회
