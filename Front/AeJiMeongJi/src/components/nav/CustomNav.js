@@ -1,6 +1,7 @@
+import {useNavigation} from '@react-navigation/native';
 import {Button} from '@rneui/themed';
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -8,21 +9,25 @@ import {
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
 const CustomNav = ({children, setIsEditing, isEditing}) => {
+  const navigation = useNavigation();
   const changeEditHandler = () => {
     setIsEditing(cur => !cur);
   };
-  console.log(children);
+
+  const goBack = () => {
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.navContainer}>
-      <View style={styles.imageContainer}>
+      <Pressable onPress={goBack} style={styles.imageContainer}>
         {/* 화살표 */}
         <Image
           style={styles.image}
           source={require('../../Assets/image/arrow.png')}
           resizeMode="contain"
         />
-      </View>
+      </Pressable>
       <View>
         <Text style={styles.title}>{children}</Text>
       </View>
@@ -68,15 +73,15 @@ const styles = StyleSheet.create({
     height: responsiveHeight(5),
   },
   title: {
-    fontWeight:'bold',
+    fontWeight: 'bold',
     color: 'black',
-    fontSize: responsiveFontSize(2)
+    fontSize: responsiveFontSize(2),
   },
   button: {
     backgroundColor: Colors.back100,
   },
   buttonTitle: {
     color: '#D08C42',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
