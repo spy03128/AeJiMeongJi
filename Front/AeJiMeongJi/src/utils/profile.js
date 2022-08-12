@@ -392,7 +392,7 @@ export const fetchLikedGuide = async () => {
   try {
     const res = await axios({
       method: 'get',
-      url: url+path,
+      url: url + path,
     })
     return res.data
 

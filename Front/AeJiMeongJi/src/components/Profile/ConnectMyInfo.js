@@ -11,23 +11,11 @@ import {useSelector} from 'react-redux';
 import {getDog} from '../../utils/profile';
 import {useNavigation} from '@react-navigation/native';
 
-const ConnectMyInfo = ({source}) => {
+const ConnectMyInfo = ({source,dogName}) => {
   const navigation = useNavigation();
   const goToMyInfo = () => {
     navigation.navigate('MyInfo')
   };
-  const dogId = useSelector(state => state.profile.id);
-  const [dogName, setDogName] = useState();
-  useLayoutEffect(() => {
-    const fetchInitialData = async () => {
-      const res = await getDog(dogId);
-      if (res) {
-        setDogName(res.name);
-        console.log(res.name);
-      }
-    };
-    fetchInitialData();
-  });
 
   return (
     <View style={styles.container}>

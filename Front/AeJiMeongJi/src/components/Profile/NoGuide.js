@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
-    width: responsiveWidth(80)
+    width: responsiveWidth(80),
   },
   title: {
     fontSize: responsiveFontSize(2.5),
