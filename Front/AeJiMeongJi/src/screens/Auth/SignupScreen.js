@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     flex: 1,
-    marginTop: 16,
+    marginTop: responsiveHeight(4),
   },
   progress: {
     position: 'absolute',

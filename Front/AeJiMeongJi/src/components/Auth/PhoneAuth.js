@@ -139,7 +139,7 @@ const PhoneAuth = ({
               style={styles.btn}
               title="확인"
               onPress={phoneAuthHandler}></Btn>
-            <Text>
+            <Text style={styles.time}>
               {min}분 {sec}초
             </Text>
           </View>
@@ -168,8 +168,8 @@ export default PhoneAuth;
 const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
-    width: 200,
-    marginTop: 24,
+    width: responsiveWidth(50),
+    marginTop: responsiveHeight(5),
     alignSelf: 'center',
   },
   input: {
@@ -196,7 +196,10 @@ const styles = StyleSheet.create({
   },
   afterPhoneAuth: {
     width: responsiveWidth(50),
-    paddingLeft: 10,
-    paddingTop: 15,
+    paddingLeft: responsiveWidth(5),
+    paddingTop: responsiveHeight(5),
   },
+  time: {
+    paddingLeft: responsiveWidth(2)
+  }
 });

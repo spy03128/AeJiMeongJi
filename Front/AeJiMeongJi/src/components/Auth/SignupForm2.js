@@ -99,7 +99,7 @@ const SignupForm2 = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Input
         textInputConfig={{
           value: inputValues.name,
@@ -140,12 +140,9 @@ const SignupForm2 = () => {
 export default SignupForm2;
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 30,
-  },
   btnContainer: {
     flex: 1,
-    width: 200,
+    width: responsiveWidth(50),
     marginTop: 24,
     alignSelf: 'center',
   },
@@ -165,13 +162,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnCntr: {
-    paddingHorizontal: 5,
+    paddingHorizontal: responsiveWidth(2),
   },
   btn: {
-    // flex: 1,
-    paddingHorizontal: 30,
-  },
-  cntr: {
-    minWidth: '30%',
+    paddingHorizontal: responsiveWidth(2),
   },
 });

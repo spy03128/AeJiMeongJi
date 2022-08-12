@@ -7,7 +7,7 @@ import {Colors} from '../../constants/styles';
 import {
   responsiveHeight,
   responsiveWidth,
-  responsiveFontSize
+  responsiveFontSize,
 } from 'react-native-responsive-dimensions';
 
 const SignupScreen2 = () => {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     flex: 1,
-    marginTop: 16,
+    marginTop: responsiveHeight(4),
   },
   progress: {
     width: '100%',
