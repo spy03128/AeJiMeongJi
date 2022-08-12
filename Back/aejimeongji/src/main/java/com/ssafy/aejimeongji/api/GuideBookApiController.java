@@ -1,11 +1,16 @@
 package com.ssafy.aejimeongji.api;
 
+import com.ssafy.aejimeongji.api.dto.ScrollResponse;
 import com.ssafy.aejimeongji.api.dto.guidebook.GuideBookResponse;
+import com.ssafy.aejimeongji.domain.condition.GuideSearchCondition;
 import com.ssafy.aejimeongji.domain.entity.Category;
 import com.ssafy.aejimeongji.domain.entity.GuideBook;
+import com.ssafy.aejimeongji.domain.entity.Like;
 import com.ssafy.aejimeongji.domain.service.GuideBookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RestController
@@ -22,25 +28,20 @@ public class GuideBookApiController {
 
     private final GuideBookService guideBookService;
 
-    @GetMapping(value = "/guide", params = {"dog"})
-    public ResponseEntity<Map<String, List<GuideBookResponse>>> getCustomizedGuideBookList(@RequestParam(value = "dog") Long dogId) {
-        log.info("강아지 {} 맞춤 가이드 목록 요청", dogId);
-        Map<String, List<GuideBook>> guideBookMap = guideBookService.customizedGuideBookList(dogId);
-        return ResponseEntity.ok().body(getCustomizedGuideResult(guideBookMap));
-    }
-
-    @GetMapping(value = "/guide", params = "category")
-    public ResponseEntity<List<GuideBookResponse>> getCategorizedGuideBookList(@RequestParam("category") String categoryName) {
-        log.info("'{}' 카테고리 가이드 목록 요청", categoryName);
-        List<GuideBookResponse> guideBookResponseList = guideBookService.categorizedGuideBookList(categoryName).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
-        return ResponseEntity.ok().body(guideBookResponseList);
-    }
-
-    @GetMapping(value = "/guide", params = "member")
-    public ResponseEntity<List<GuideBookResponse>> getLikedGuideBookList(@RequestParam("member") Long memberId) {
-        log.info("사용자 {} 좋아요 가이드 목록 요청", memberId);
-        List<GuideBookResponse> guideBookResponseList = guideBookService.likedGuideBookList(memberId).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
-        return ResponseEntity.ok().body(guideBookResponseList);
+    @GetMapping(value = "/guide")
+    public ResponseEntity<?> getCustomizedGuideBookList(@ModelAttribute GuideSearchCondition condition) {
+        if (condition.getDog() != null) {
+            log.info("강아지 {} 맞춤 가이드 목록 요청", condition);
+            return ResponseEntity.ok().body(getCustomizedGuideResult(guideBookService.customizedGuideBookList(condition.getDog())));
+        } else if (condition.getCategory() != null) {
+            log.info("'{}' 카테고리 가이드 목록 요청", condition);
+            return ResponseEntity.ok().body(guideBookService.categorizedGuideBookList(condition.getCategory()).stream().map(GuideBookResponse::toDTO).collect(Collectors.toList()));
+        } else {
+            log.info("사용자 {} 좋아요 가이드 목록 요청", condition);
+            Slice<Like> result = guideBookService.likedGuideBookList(condition.getMember(), condition.getCurLastIdx(), condition.getLimit());
+            List<GuideBookResponse> data = result.getContent().stream().map(GuideBookResponse::toDTO).collect(Collectors.toList());
+            return ResponseEntity.ok().body(new ScrollResponse(data, result.hasNext(), data.get(data.size()-1).getGuideId(), result.getSize()));
+        }
     }
 
     @GetMapping("/guide/{guideId}")
@@ -64,4 +65,3 @@ public class GuideBookApiController {
         return result;
     }
 }
-

@@ -9,10 +9,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 # ===== 검색 기본 설정 =====
 URL = "https://map.naver.com/v5/"
 options = Options()
 options.add_argument("headless")
+
 
 # ===== 해당 펫 플레이스 찾기 =====
 def find_place(driver, name):
@@ -41,7 +43,7 @@ def find_place(driver, name):
 def get_reviews(address, name):
 
     driver = webdriver.Chrome("chromedriver", options=options)
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(1.5)
     driver.get(URL)
 
     # 펫 플레이스 검색
@@ -92,7 +94,7 @@ def get_reviews(address, name):
         # 작성자
         reviewer = reviews[i].find_element(By.CSS_SELECTOR, "div._1vou-").text
         # 리뷰글
-        review = reviews[i].find_element(By.CSS_SELECTOR, "span.WoYOw").text
+        content = reviews[i].find_element(By.CSS_SELECTOR, "span.WoYOw").text.strip().replace("\n", " ")
         # 날짜
         date_tmp = reviews[i].find_element(By.TAG_NAME, "time").text.split(".")
         # 날짜 정제
@@ -109,16 +111,15 @@ def get_reviews(address, name):
 
         data.append({
             "reviewer": reviewer,
-            "content": review,
+            "content": content,
             "date": date,
             "hash_tags": hash_tags
         })
 
     driver.quit()
 
-    json_data = json.dumps(data, indent=4, ensure_ascii=False)
-    print(json_data)
+    # json_data = json.dumps(data, indent=4, ensure_ascii=False)
+    # print(json_data)
 
-    return json_data
+    return data
 
-get_reviews("서귀포시 남원읍 남원월산로74번길 101-28", "오월의 제주")

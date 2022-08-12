@@ -14,6 +14,8 @@ import com.ssafy.aejimeongji.domain.repository.LikeRepository;
 import com.ssafy.aejimeongji.domain.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,9 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -37,6 +37,7 @@ public class GuideBookService {
     private final DogRepository dogRepository;
     private final CategoryRepository categoryRepository;
     private final ImageUtil imageUtil;
+    private final Random random = new Random();
 
     // 맞춤 가이드 조회
     public Map<String, List<GuideBook>> customizedGuideBookList(Long dogId) {
@@ -48,8 +49,8 @@ public class GuideBookService {
 
         Map<String, List<GuideBook>> result = new HashMap<>();
         result.put("fixedGuideList", fixedGuideBookList);
-        result.put("ageGuideList", ageGuideBookList);
-        result.put("weightGuideList", weightGuideBookList);
+        result.put("ageGuideList", fixedGuideBookList);
+        result.put("weightGuideList", fixedGuideBookList);
         return result;
     }
 
@@ -59,9 +60,8 @@ public class GuideBookService {
     }
 
     // 멤버별 좋아요 가이드 목록 조회
-    public List<GuideBook> likedGuideBookList(Long memberId) {
-        List<Like> likeList = likeRepository.findLikesByMemberId(memberId);
-        return likeList.stream().map(Like::getGuideBook).collect(Collectors.toList());
+    public Slice<Like> likedGuideBookList(Long memberId, Long curLastIdx, Integer limit) {
+        return likeRepository.findLikeGuideBook(memberId, curLastIdx, PageRequest.of(0, limit));
     }
 
     // 가이드 상세 조회
@@ -85,6 +85,7 @@ public class GuideBookService {
         return guideBookRepository.findCustomizedGuideBookList(null, dog.getWeight());
     }
 
+    // 카테고리 목록 조회
     public List<Category> getCategories() {
         return categoryRepository.findAll();
     }
@@ -100,9 +101,10 @@ public class GuideBookService {
     @Transactional
     public Long updateGuideBook(Long guideId, GuideBook updateParam, MultipartFile thumbnail) throws IOException {
         GuideBook findGuide = findGuideBook(guideId);
-        if (!thumbnail.isEmpty())
+        if (!thumbnail.isEmpty()) {
             imageUtil.deleteStoreImage(findGuide.getThumbnail().getStoreFilename());
             findGuide.updateGuideBook(updateParam, new GuideThumbnail(imageUtil.storeImage(thumbnail)));
+        }
         return findGuide.getId();
     }
 
