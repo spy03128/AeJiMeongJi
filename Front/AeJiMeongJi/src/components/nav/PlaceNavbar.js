@@ -16,7 +16,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../constants/styles';
 
-const PlaceNavbar = ({source}) => {
+const PlaceNavbar = ({source, children}) => {
   return (
     <View style={styles.nav}>
       <Image
@@ -25,7 +25,7 @@ const PlaceNavbar = ({source}) => {
         source={{uri: source}}
       />
       <View style={styles.text}>
-        <Text>플레이스</Text>
+        <Text>{children}</Text>
       </View>
       <Pressable
         onPress={() => {
