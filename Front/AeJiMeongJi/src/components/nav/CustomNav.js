@@ -8,10 +8,13 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {Colors} from '../../constants/styles';
-const CustomNav = ({children, setIsEditing, isEditing}) => {
+const CustomNav = ({children, setIsEditing, isEditing, screen}) => {
   const navigation = useNavigation();
   const changeEditHandler = () => {
-    setIsEditing(cur => !cur);
+    
+    if (screen === 'Choice') {
+      setIsEditing(cur => !cur);
+    }
   };
 
   const goBack = () => {

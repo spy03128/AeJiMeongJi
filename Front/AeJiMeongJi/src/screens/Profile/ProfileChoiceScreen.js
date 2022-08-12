@@ -62,7 +62,7 @@ const ProfileChoiceScreen = () => {
 
   return (
     <SafeAreaView style={styles.rootContainer}>
-      <CustomNav isEditing={isEditing} setIsEditing={setIsEditing}>
+      <CustomNav isEditing={isEditing} setIsEditing={setIsEditing} screen='Choice'>
         {isEditing ? '프로필 편집' : '프로필 선택'}
       </CustomNav>
       <FlatList
