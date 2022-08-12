@@ -7,13 +7,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {register} from '../../utils/auth';
 import PhoneAuth from './PhoneAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authActions } from '../../store/auth';
-
+import {authActions} from '../../store/auth';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from 'react-native-responsive-dimensions';
 const SignupForm2 = () => {
   const email = useSelector(state => state.auth.user.email);
   const password = useSelector(state => state.auth.user.password);
   const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [inputValues, setInputValues] = useState({
     email,
     password,
@@ -83,9 +87,9 @@ const SignupForm2 = () => {
     } else if (!phoneIsValid || inputValues.phone.length !== 11) {
       Alert.alert('휴대폰 번호를 확인해주세요.');
       return;
-    // } else if (!phoneIsAuthenticated) {
-    //   Alert.alert('휴대폰 인증이 필요합니다.');
-    //   return;
+      // } else if (!phoneIsAuthenticated) {
+      //   Alert.alert('휴대폰 인증이 필요합니다.');
+      //   return;
     }
 
     // backend에 쏨
@@ -149,11 +153,11 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   errorMessage: {
-    fontSize: 8,
+    fontSize: responsiveFontSize(1),
     fontWeight: 'bold',
-    marginTop: 4,
+    marginTop: responsiveHeight(1),
     color: 'red',
-    paddingLeft: 8,
+    paddingLeft: responsiveWidth(3),
   },
   phone: {
     flexDirection: 'row',

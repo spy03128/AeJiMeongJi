@@ -13,7 +13,7 @@ import {
 
 const WelcomeScreen = ({navigation}) => {
   const goToScreen = indicator => {
-    navigation.navigate();
+    navigation.navigate(indicator);
   };
 
   return (
@@ -29,7 +29,7 @@ const WelcomeScreen = ({navigation}) => {
             <Button onPress={goToScreen.bind(this, 'Login')}>로그인</Button>
           </View>
           <View style={styels.btnInnerContainer}>
-            <Button onPress={goToScreen.bind(this, 'Signin')}>회원가입</Button>
+            <Button onPress={goToScreen.bind(this, 'Signup')}>회원가입</Button>
           </View>
         </View>
       </View>
