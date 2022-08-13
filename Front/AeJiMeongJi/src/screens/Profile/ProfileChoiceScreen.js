@@ -57,6 +57,7 @@ const ProfileChoiceScreen = () => {
   );
 
   const goToMyInfo = () => {
+    // 여기서 비밀번호 컨펌
     navigation.navigate('MyInfo');
   };
 
