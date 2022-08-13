@@ -8,7 +8,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import DummyData from '../../components/Profile/DummyData';
 import ProfileItems from '../../components/Profile/ProfileItems';
 import {Colors} from '../../constants/styles';
 import {Provider, useDispatch, useSelector} from 'react-redux';
