@@ -1,16 +1,16 @@
 ## 🐶 반려동물 길잡이 어플리케이션 애지멍지
 
-[<img src="file:///C:/Users/multicampus/Downloads/smallLogo.png" title="" alt="타이틀이미지" width="311">](https://user-images.githubusercontent.com/55949647/154088644-8ae7ec32-04bb-4fc3-810a-c2111ec2afb8.png)
+
+![3팀](https://user-images.githubusercontent.com/57143818/193455201-5ce2a1b5-b64b-4bb8-afa9-c8d97e764669.png)
 
 -----
-
 
 
 ## 1. 애지멍지 소개 영상
 
 ### [소개 영상](https://studio.youtube.com/video/8nHvTzSVFO4/edit)
 
-### [공식 UCC]([SSAFY 구미 2반 3팀 애지멍지 UCC - YouTube](https://www.youtube.com/watch?v=ncZlw1T7s14))
+### [공식 UCC]([애지멍지 UCC - YouTube](https://www.youtube.com/watch?v=ncZlw1T7s14))
 
 
 
@@ -18,9 +18,7 @@
 
 ## 2. 프로젝트 진행 기간
 
-삼성 청년SW아카데미 구미캠퍼스 7기
-
-공통 프로젝트 (6주, 2022-07-11 ~ 2022-08-19)
+2022-07-11 ~ 2022-08-19
 
 
 
